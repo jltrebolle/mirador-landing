@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mirador Financiero — Tus finanzas, con perspectiva</title>
+<meta name="description" content="La herramienta de finanzas personales para España. Presupuesto, objetivos de ahorro y planificación en un solo lugar. Para que llegar a fin de mes deje de ser una hazaña.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Paleta de marca Mirador */
+  --noche: #1A3A4A;
+  --mirador: #2E6E8E;
+  --horizonte: #3AAFA9;
+  --destello: #F0C84A;
+  --destello-dark: #D9AE2C;
+  --fondo: #F5F7F9;
+  --fondo-warm: #FAF7F0;
+  --texto: #1E2D38;
+  --texto-suave: #5A6B78;
+  --blanco: #FFFFFF;
+  --borde: rgba(30,45,56,0.08);
+  --borde-fuerte: rgba(30,45,56,0.15);
+
+  /* Tipografía */
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 3px rgba(26,58,74,0.06), 0 1px 2px rgba(26,58,74,0.04);
+  --shadow-md: 0 4px 12px rgba(26,58,74,0.08), 0 2px 4px rgba(26,58,74,0.04);
+  --shadow-lg: 0 12px 32px rgba(26,58,74,0.10), 0 4px 8px rgba(26,58,74,0.05);
+  --shadow-xl: 0 24px 48px rgba(26,58,74,0.14), 0 8px 16px rgba(26,58,74,0.06);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+body {
+  font-family: var(--sans);
+  background: var(--fondo);
+  color: var(--texto);
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+img, svg { display: block; max-width: 100%; }
+
+/* ---------- NAV ---------- */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(245,247,249,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--borde);
+  padding: 0 2rem;
+  height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { display: flex; align-items: center; gap: 12px; }
+.nav-logo-full { height: 44px; width: auto; display: block; }
+.nav-logo-mark { width: 34px; height: 34px; }
+.nav-logo-text { display: flex; flex-direction: column; line-height: 1; }
+.nav-logo-main { font-family: var(--serif); font-size: 20px; color: var(--noche); letter-spacing: 0.01em; }
+.nav-logo-sub { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mirador); font-weight: 500; margin-top: 3px; }
+.nav-links { display: flex; align-items: center; gap: 2.2rem; }
+.nav-links a { color: var(--texto-suave); font-size: 14.5px; font-weight: 400; transition: color 0.2s; }
+.nav-links a:hover { color: var(--noche); }
+.nav-cta {
+  background: var(--destello); color: var(--noche) !important;
+  padding: 9px 18px; border-radius: 999px;
+  font-weight: 600 !important; font-size: 14px !important;
+  transition: all 0.2s; box-shadow: 0 2px 6px rgba(240,200,74,0.4);
+}
+.nav-cta:hover { background: var(--destello-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(240,200,74,0.5); }
+@media (max-width: 780px) {
+  nav { padding: 0 1.2rem; }
+  .nav-links > a:not(.nav-cta) { display: none; }
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  position: relative;
+  padding: 9rem 2rem 7rem;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--fondo) 0%, #E8EEF1 100%);
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 20%, rgba(58,175,169,0.12) 0%, transparent 50%),
+              radial-gradient(ellipse at 20% 80%, rgba(46,110,142,0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-mountains {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  width: 100%; height: 260px;
+  pointer-events: none; opacity: 0.9;
+}
+.hero-inner {
+  max-width: 1120px; margin: 0 auto;
+  position: relative; z-index: 2;
+  text-align: center;
+}
+.hero-kicker {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.7); backdrop-filter: blur(8px);
+  padding: 7px 16px; border-radius: 999px;
+  font-size: 12.5px; font-weight: 500; color: var(--mirador);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border: 1px solid var(--borde);
+  margin-bottom: 2rem;
+}
+.hero-kicker-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--horizonte);
+  box-shadow: 0 0 0 3px rgba(58,175,169,0.2);
+  animation: pulse 2.2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(58,175,169,0.2); }
+  50% { box-shadow: 0 0 0 6px rgba(58,175,169,0.05); }
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: 1.05;
+  color: var(--noche);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--mirador);
+  position: relative;
+}
+.hero-sub {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  color: var(--texto-suave);
+  max-width: 640px; margin: 0 auto 2.5rem;
+  line-height: 1.55;
+}
+.hero-slogan {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  color: var(--mirador);
+  margin-bottom: 2.8rem;
+  letter-spacing: 0.01em;
+}
+.hero-form {
+  display: flex; justify-content: center; gap: 10px;
+  max-width: 520px; margin: 0 auto 1.5rem;
+  flex-wrap: wrap;
+}
+.hero-form input {
+  flex: 1; min-width: 260px;
+  padding: 16px 22px;
+  border: 1px solid var(--borde-fuerte);
+  border-radius: 999px;
+  font-family: var(--sans); font-size: 15px;
+  background: var(--blanco);
+  color: var(--texto);
+  transition: all 0.2s;
+}
+.hero-form input:focus {
+  outline: none;
+  border-color: var(--mirador);
+  box-shadow: 0 0 0 4px rgba(46,110,142,0.1);
+}
+.btn-primary {
+  background: var(--destello); color: var(--noche);
+  border: none; cursor: pointer;
+  padding: 16px 32px;
+  font-family: var(--sans); font-size: 15px; font-weight: 600;
+  border-radius: 999px;
+  transition: all 0.25s;
+  box-shadow: 0 4px 14px rgba(240,200,74,0.4);
+  white-space: nowrap;
+}
+.btn-primary:hover { background: var(--destello-dark); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(240,200,74,0.5); }
+.btn-primary:active { transform: translateY(0); }
+.hero-trust {
+  font-size: 13px; color: var(--texto-suave);
+  display: flex; justify-content: center; align-items: center;
+  gap: 16px; flex-wrap: wrap;
+}
+.hero-trust-dot { color: var(--borde-fuerte); }
+.hero-success {
+  display: none; padding: 20px 32px;
+  background: rgba(58,175,169,0.1);
+  border: 1px solid rgba(58,175,169,0.3);
+  border-radius: 16px;
+  color: var(--noche); max-width: 520px; margin: 0 auto;
+  font-weight: 500;
+}
+
+/* ---------- STATS BAR ---------- */
+.stats {
+  background: var(--noche);
+  color: var(--fondo);
+  padding: 2rem;
+  position: relative; z-index: 2;
+}
+.stats-inner {
+  max-width: 1120px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem; align-items: center;
+}
+.stats-item { display: flex; align-items: center; gap: 10px; font-size: 13.5px; }
+.stats-icon { font-size: 18px; }
+.stats-soon {
+  font-style: italic;
+  font-size: 11.5px;
+  color: var(--destello);
+  letter-spacing: 0.02em;
+  margin-left: 2px;
+}
+@media (max-width: 900px) {
+  .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+}
+
+/* ---------- SECTION BASE ---------- */
+section { padding: 6rem 2rem; position: relative; }
+.section-inner { max-width: 1120px; margin: 0 auto; }
+.section-label {
+  display: inline-block;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--mirador);
+  padding: 6px 14px;
+  background: rgba(46,110,142,0.08);
+  border-radius: 999px;
+  margin-bottom: 1.2rem;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  color: var(--noche);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+}
+.section-title em { font-style: italic; color: var(--mirador); }
+.section-sub {
+  font-size: 1.1rem;
+  color: var(--texto-suave);
+  max-width: 640px;
+  line-height: 1.6;
+  margin-bottom: 3.5rem;
+}
+.section-head-center { text-align: center; }
+.section-head-center .section-sub { margin-left: auto; margin-right: auto; }
+
+/* ---------- PROBLEMA ---------- */
+.problema { background: var(--fondo-warm); }
+.problema-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+.problema-card {
+  background: var(--blanco);
+  padding: 2rem 1.8rem;
+  border-radius: 16px;
+  border: 1px solid var(--borde);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s;
+  position: relative;
+}
+.problema-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: rgba(240,200,74,0.4); }
+.problema-icon { font-size: 28px; margin-bottom: 1rem; }
+.problema-card p {
+  font-family: var(--serif);
+  font-size: 1.1rem; line-height: 1.45;
+  color: var(--noche); font-style: italic;
+}
+
+/* ---------- FEATURES ---------- */
+.features { background: var(--fondo); }
+.features-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+.feature {
+  background: var(--blanco);
+  padding: 2.2rem 2rem;
+  border-radius: 20px;
+  border: 1px solid var(--borde);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.feature::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--horizonte);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s;
+}
+.feature:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.feature:hover::before { transform: scaleX(1); }
+.feature-icon {
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, rgba(46,110,142,0.1), rgba(58,175,169,0.1));
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  margin-bottom: 1.2rem;
+}
+.feature h3 {
+  font-family: var(--serif); font-size: 1.35rem;
+  color: var(--noche); font-weight: 400;
+  margin-bottom: 0.6rem;
+}
+.feature p {
+  color: var(--texto-suave); font-size: 0.95rem; line-height: 1.55;
+  margin-bottom: 1rem;
+}
+.feature-badge {
+  display: inline-block; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px;
+}
+.feature-badge.gratuito { background: rgba(58,175,169,0.12); color: var(--horizonte); }
+.feature-badge.premium { background: rgba(240,200,74,0.18); color: var(--destello-dark); }
+.feature-badge.proximamente { background: rgba(46,110,142,0.1); color: var(--mirador); }
+
+/* ---------- PERSONAS ---------- */
+.personas { background: var(--fondo-warm); position: relative; overflow: hidden; }
+.personas-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem; margin-top: 2.5rem;
+}
+.persona {
+  background: var(--blanco);
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  border: 1px solid var(--borde);
+  position: relative;
+  transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
+}
+.persona.primary {
+  border: 2px solid var(--mirador);
+  background: linear-gradient(180deg, var(--blanco) 0%, rgba(46,110,142,0.03) 100%);
+  box-shadow: var(--shadow-md);
+}
+.persona.primary::after {
+  content: 'NUESTRO FOCO ACTUAL';
+  position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+  background: var(--mirador); color: var(--blanco);
+  font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+  padding: 5px 14px; border-radius: 999px;
+  white-space: nowrap;
+}
+.persona:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.persona-icon {
+  width: 56px; height: 56px; border-radius: 16px;
+  background: linear-gradient(135deg, var(--mirador), var(--horizonte));
+  color: var(--blanco);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  margin-bottom: 1.2rem;
+}
+.persona h3 {
+  font-family: var(--serif); font-size: 1.5rem;
+  color: var(--noche); font-weight: 400;
+  margin-bottom: 0.3rem;
+}
+.persona-role {
+  font-size: 13px; color: var(--horizonte); font-weight: 500;
+  margin-bottom: 1rem; letter-spacing: 0.02em;
+}
+.persona p {
+  color: var(--texto-suave); font-size: 0.95rem; line-height: 1.55;
+  margin-bottom: 1.2rem;
+}
+.persona ul { list-style: none; }
+.persona li {
+  padding: 6px 0; color: var(--texto); font-size: 0.92rem;
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.persona li::before {
+  content: '→'; color: var(--horizonte); font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ---------- COMO FUNCIONA ---------- */
+.como { background: var(--noche); color: var(--fondo); position: relative; overflow: hidden; }
+.como::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 40%, rgba(58,175,169,0.18) 0%, transparent 50%);
+}
+.como .section-label { background: rgba(240,200,74,0.15); color: var(--destello); }
+.como .section-title { color: var(--fondo); }
+.como .section-title em { color: var(--destello); }
+.como .section-sub { color: rgba(245,247,249,0.7); }
+.como-inner { position: relative; z-index: 2; }
+.como-steps {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 2rem; margin-top: 2rem; position: relative;
+}
+.como-steps::before {
+  content: ''; position: absolute;
+  top: 24px; left: 10%; right: 10%; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(240,200,74,0.3), rgba(240,200,74,0.3), transparent);
+  z-index: 0;
+}
+.como-step { position: relative; z-index: 1; }
+.como-step-num {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--destello); color: var(--noche);
+  font-family: var(--serif); font-size: 22px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 4px 14px rgba(240,200,74,0.3);
+}
+.como-step h4 {
+  font-family: var(--serif); font-size: 1.25rem;
+  color: var(--fondo); font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+.como-step p {
+  color: rgba(245,247,249,0.7); font-size: 0.92rem; line-height: 1.55;
+}
+@media (max-width: 900px) {
+  .como-steps { grid-template-columns: 1fr 1fr; }
+  .como-steps::before { display: none; }
+}
+@media (max-width: 500px) {
+  .como-steps { grid-template-columns: 1fr; }
+}
+
+/* ---------- DASHBOARD PREVIEW ---------- */
+.preview { background: var(--fondo); padding: 6rem 2rem; }
+.preview-inner { max-width: 1120px; margin: 0 auto; }
+.preview-head { text-align: center; margin-bottom: 3rem; }
+.dashboard {
+  background: var(--blanco);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--borde);
+  max-width: 920px; margin: 0 auto;
+  position: relative;
+}
+.dashboard::before {
+  content: ''; position: absolute;
+  top: -12px; left: -12px; right: -12px; bottom: -12px;
+  border: 1px solid var(--borde);
+  border-radius: 28px;
+  pointer-events: none;
+  z-index: -1;
+}
+.dash-greeting {
+  font-family: var(--serif); font-size: 1.35rem;
+  color: var(--noche); margin-bottom: 1.8rem;
+  font-weight: 400;
+}
+.dash-greeting span { color: var(--mirador); font-style: italic; }
+.dash-kpis {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1rem; margin-bottom: 2rem;
+}
+.kpi {
+  padding: 1.3rem 1.5rem;
+  background: var(--fondo-warm);
+  border-radius: 14px;
+  border: 1px solid var(--borde);
+}
+.kpi-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--texto-suave);
+  margin-bottom: 0.4rem;
+}
+.kpi-value {
+  font-family: var(--serif); font-size: 1.7rem;
+  color: var(--noche); font-weight: 400;
+  margin-bottom: 0.3rem;
+}
+.kpi-meta { font-size: 12.5px; color: var(--horizonte); }
+.kpi-meta.alerta { color: var(--destello-dark); }
+.dash-section-title {
+  font-size: 14px; font-weight: 600;
+  color: var(--texto); margin-bottom: 1rem;
+}
+.dash-rows { display: flex; flex-direction: column; gap: 8px; }
+.dash-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.85rem 1rem;
+  background: var(--fondo);
+  border-radius: 10px;
+}
+.dash-row-left { display: flex; align-items: center; gap: 12px; }
+.dash-row-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--blanco);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.dash-row-name { font-size: 14px; font-weight: 500; color: var(--texto); }
+.dash-row-cat { font-size: 12px; color: var(--texto-suave); margin-top: 2px; }
+.dash-row-amount { font-family: var(--serif); font-size: 1.05rem; font-weight: 400; }
+.dash-row-amount.neg { color: var(--noche); }
+.dash-row-amount.pos { color: var(--horizonte); }
+@media (max-width: 700px) {
+  .dash-kpis { grid-template-columns: 1fr; }
+  .dashboard { padding: 1.8rem; }
+}
+
+/* ---------- ECOSISTEMA ---------- */
+.ecosistema { background: var(--fondo-warm); }
+.eco-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; margin-top: 2.5rem;
+}
+.eco-card {
+  background: var(--blanco);
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  border: 1px solid var(--borde);
+  text-align: left;
+  transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
+}
+.eco-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.eco-icon {
+  width: 52px; height: 52px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; margin-bottom: 1.2rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--horizonte), var(--mirador));
+  color: var(--blanco);
+}
+.eco-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--mirador);
+  margin-bottom: 0.6rem;
+}
+.eco-card h3 {
+  font-family: var(--serif); font-size: 1.35rem;
+  color: var(--noche); font-weight: 400;
+  margin-bottom: 0.7rem;
+}
+.eco-card p {
+  color: var(--texto-suave); font-size: 0.95rem;
+  line-height: 1.55; margin-bottom: 1.2rem;
+}
+.eco-status {
+  font-size: 12.5px; color: var(--horizonte); font-weight: 500;
+}
+@media (max-width: 900px) { .eco-grid { grid-template-columns: 1fr; } }
+
+/* ---------- PRECIOS ---------- */
+.precios { background: var(--fondo); }
+.precios-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.5rem; margin-top: 2.5rem;
+  max-width: 860px; margin-left: auto; margin-right: auto;
+}
+.plan {
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: 24px;
+  padding: 2.5rem 2.2rem;
+  position: relative;
+  transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
+}
+.plan:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+.plan.featured {
+  background: linear-gradient(180deg, var(--blanco) 0%, rgba(46,110,142,0.04) 100%);
+  border: 2px solid var(--mirador);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+.plan.featured::before {
+  content: 'Más popular';
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--destello); color: var(--noche);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  padding: 6px 16px; border-radius: 999px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(240,200,74,0.4);
+}
+.plan-name {
+  font-family: var(--serif); font-size: 1.6rem;
+  color: var(--noche); font-weight: 400;
+  margin-bottom: 0.3rem;
+}
+.plan-tagline {
+  color: var(--texto-suave); font-size: 0.92rem;
+  margin-bottom: 1.5rem;
+}
+.plan-price {
+  font-family: var(--serif); font-size: 3rem;
+  color: var(--noche); font-weight: 400;
+  line-height: 1; margin-bottom: 0.3rem;
+}
+.plan-price span {
+  font-size: 1rem; color: var(--texto-suave);
+  font-family: var(--sans);
+}
+.plan-price-note {
+  font-size: 13px; color: var(--texto-suave);
+  margin-bottom: 1.8rem;
+}
+.plan ul { list-style: none; margin-bottom: 2rem; }
+.plan li {
+  padding: 8px 0; font-size: 0.94rem;
+  color: var(--texto); line-height: 1.5;
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.plan li.yes::before {
+  content: '✓'; color: var(--horizonte); font-weight: 700;
+  flex-shrink: 0;
+}
+.plan li.no { color: var(--texto-suave); }
+.plan li.no::before {
+  content: '—'; color: var(--borde-fuerte); font-weight: 700;
+  flex-shrink: 0;
+}
+.plan-cta {
+  display: block; width: 100%; text-align: center;
+  padding: 14px 24px; border-radius: 999px;
+  font-weight: 600; font-size: 14.5px;
+  transition: all 0.2s; cursor: pointer;
+  border: none; font-family: var(--sans);
+}
+.plan-cta.primary {
+  background: var(--destello); color: var(--noche);
+  box-shadow: 0 4px 14px rgba(240,200,74,0.4);
+}
+.plan-cta.primary:hover {
+  background: var(--destello-dark); transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(240,200,74,0.5);
+}
+.plan-cta.secondary {
+  background: transparent; color: var(--noche);
+  border: 1.5px solid var(--borde-fuerte);
+}
+.plan-cta.secondary:hover {
+  border-color: var(--mirador); color: var(--mirador);
+  background: rgba(46,110,142,0.04);
+}
+@media (max-width: 780px) { .precios-grid { grid-template-columns: 1fr; } }
+
+/* Add-on bancario bloque */
+.addon {
+  max-width: 860px; margin: 1.5rem auto 0;
+  background: linear-gradient(135deg, var(--noche) 0%, var(--mirador) 100%);
+  color: var(--fondo);
+  border-radius: 20px;
+  padding: 2rem 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 2rem; flex-wrap: wrap;
+  box-shadow: var(--shadow-md);
+  position: relative; overflow: hidden;
+}
+.addon::before {
+  content: '';
+  position: absolute; top: -50%; right: -10%;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(58,175,169,0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+.addon-body { flex: 1; min-width: 260px; position: relative; z-index: 2; }
+.addon-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--destello);
+  margin-bottom: 0.5rem;
+}
+.addon h3 {
+  font-family: var(--serif); font-size: 1.5rem;
+  font-weight: 400; margin-bottom: 0.5rem;
+}
+.addon p {
+  color: rgba(245,247,249,0.8); font-size: 0.94rem;
+  line-height: 1.5;
+}
+.addon-price {
+  position: relative; z-index: 2;
+  text-align: right;
+}
+.addon-price-main {
+  font-family: var(--serif); font-size: 2rem; line-height: 1;
+}
+.addon-price-main span { font-size: 0.9rem; color: rgba(245,247,249,0.7); font-family: var(--sans); }
+.addon-price-sub { font-size: 13px; color: rgba(245,247,249,0.6); margin-top: 0.3rem; }
+
+/* ---------- PLANTILLAS EXCEL ---------- */
+.plantillas { background: var(--fondo-warm); position: relative; }
+.plantillas-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem; margin-top: 2.5rem;
+}
+.plantilla {
+  background: var(--blanco);
+  border-radius: 18px;
+  padding: 2rem 1.8rem;
+  border: 1px solid var(--borde);
+  transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+.plantilla:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.plantilla.free {
+  background: linear-gradient(135deg, var(--horizonte) 0%, var(--mirador) 100%);
+  color: var(--fondo);
+  border-color: transparent;
+  box-shadow: var(--shadow-md);
+}
+.plantilla.free:hover { box-shadow: var(--shadow-lg); }
+.plantilla-tag {
+  display: inline-block;
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px;
+  margin-bottom: 1rem;
+}
+.plantilla-tag.free-tag {
+  background: var(--destello); color: var(--noche);
+}
+.plantilla-tag.paid-tag {
+  background: rgba(46,110,142,0.1); color: var(--mirador);
+}
+.plantilla h4 {
+  font-family: var(--serif); font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 0.6rem;
+  line-height: 1.25;
+}
+.plantilla.free h4 { color: var(--fondo); }
+.plantilla:not(.free) h4 { color: var(--noche); }
+.plantilla p {
+  font-size: 0.88rem; line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+.plantilla.free p { color: rgba(245,247,249,0.85); }
+.plantilla:not(.free) p { color: var(--texto-suave); }
+.plantilla-price {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+}
+.plantilla.free .plantilla-price { color: var(--destello); font-weight: 400; }
+.plantilla:not(.free) .plantilla-price { color: var(--noche); }
+.plantilla-pack {
+  grid-column: 1 / -1;
+  background: var(--destello);
+  color: var(--noche);
+  border-radius: 18px;
+  padding: 2rem 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 2rem; flex-wrap: wrap;
+  margin-top: 1rem;
+  box-shadow: var(--shadow-md);
+}
+.plantilla-pack h4 {
+  font-family: var(--serif); font-size: 1.4rem;
+  font-weight: 400; margin-bottom: 0.3rem;
+}
+.plantilla-pack p {
+  font-size: 0.92rem; color: rgba(26,58,74,0.75);
+  max-width: 440px;
+}
+.plantilla-pack-price {
+  font-family: var(--serif); font-size: 2.2rem;
+  color: var(--noche); line-height: 1;
+}
+
+/* ---------- FOUNDING MEMBERS ---------- */
+.founding {
+  background: var(--destello);
+  padding: 5rem 2rem;
+  position: relative; overflow: hidden;
+}
+.founding::before {
+  content: '';
+  position: absolute; top: -30%; left: -10%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(26,58,74,0.08) 0%, transparent 70%);
+}
+.founding-inner {
+  max-width: 880px; margin: 0 auto;
+  position: relative; z-index: 2;
+  text-align: center;
+}
+.founding-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--noche); color: var(--destello);
+  padding: 7px 16px; border-radius: 999px;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.founding-label-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--destello); animation: pulse 2s infinite;
+}
+.founding h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  line-height: 1.15;
+  color: var(--noche); font-weight: 400;
+  margin-bottom: 1.2rem;
+  letter-spacing: -0.01em;
+}
+.founding h2 em { font-style: italic; }
+.founding-sub {
+  font-size: 1.05rem; color: rgba(26,58,74,0.8);
+  max-width: 640px; margin: 0 auto 2.5rem;
+  line-height: 1.55;
+}
+.founding-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1rem; margin-bottom: 2.5rem;
+}
+.founding-item {
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(4px);
+  padding: 1.3rem 1rem;
+  border-radius: 14px;
+  text-align: center;
+  border: 1px solid rgba(26,58,74,0.1);
+}
+.founding-item-num {
+  font-family: var(--serif);
+  font-size: 1.6rem; color: var(--noche);
+  line-height: 1; margin-bottom: 0.4rem;
+}
+.founding-item-label {
+  font-size: 12.5px; color: rgba(26,58,74,0.75);
+  line-height: 1.3;
+}
+.founding-bar {
+  max-width: 420px; margin: 0 auto;
+  background: rgba(26,58,74,0.12);
+  border-radius: 999px; height: 10px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+.founding-bar-fill {
+  height: 100%; width: 34%;
+  background: var(--noche);
+  border-radius: 999px;
+  transition: width 1s;
+}
+.founding-counter {
+  font-size: 13px; color: rgba(26,58,74,0.7);
+  margin-bottom: 2rem;
+}
+.founding-counter strong { color: var(--noche); }
+.founding-cta {
+  background: var(--noche); color: var(--destello);
+  padding: 16px 36px; border-radius: 999px;
+  font-weight: 600; font-size: 15px;
+  display: inline-block; transition: all 0.2s;
+  border: none; cursor: pointer; font-family: var(--sans);
+  box-shadow: 0 6px 20px rgba(26,58,74,0.25);
+}
+.founding-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(26,58,74,0.35); }
+@media (max-width: 720px) {
+  .founding-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------- FAQ ---------- */
+.faq { background: var(--fondo); }
+.faq-list { max-width: 780px; margin: 2.5rem auto 0; }
+.faq-item {
+  border-bottom: 1px solid var(--borde);
+  padding: 1.5rem 0;
+  cursor: pointer;
+}
+.faq-item:first-child { border-top: 1px solid var(--borde); }
+.faq-q {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 1rem;
+}
+.faq-q-text {
+  font-family: var(--serif); font-size: 1.18rem;
+  color: var(--noche); font-weight: 400;
+  line-height: 1.35;
+  flex: 1;
+}
+.faq-q-icon {
+  width: 28px; height: 28px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: rgba(46,110,142,0.08); color: var(--mirador);
+  font-size: 16px; font-weight: 300;
+  transition: all 0.3s;
+}
+.faq-item.open .faq-q-icon {
+  background: var(--mirador); color: var(--blanco);
+  transform: rotate(45deg);
+}
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.3s ease;
+  color: var(--texto-suave); font-size: 0.96rem;
+  line-height: 1.6;
+}
+.faq-item.open .faq-a {
+  max-height: 400px;
+  padding-top: 1rem;
+}
+
+/* ---------- CTA FINAL ---------- */
+.cta-final {
+  background: var(--noche);
+  color: var(--fondo);
+  padding: 6rem 2rem;
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+.cta-final::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 100%, rgba(58,175,169,0.2) 0%, transparent 60%);
+}
+.cta-final-mountains {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  width: 100%; opacity: 0.25;
+  pointer-events: none;
+}
+.cta-final-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+.cta-final h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15; font-weight: 400;
+  margin-bottom: 1.2rem;
+  letter-spacing: -0.01em;
+}
+.cta-final h2 em { color: var(--destello); font-style: italic; }
+.cta-final p {
+  color: rgba(245,247,249,0.75);
+  font-size: 1.1rem; line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+.cta-final-form {
+  display: flex; gap: 10px; justify-content: center;
+  max-width: 520px; margin: 0 auto 1.2rem;
+  flex-wrap: wrap;
+}
+.cta-final-form input {
+  flex: 1; min-width: 240px;
+  padding: 15px 22px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+  border-radius: 999px;
+  color: var(--fondo); font-size: 15px;
+  font-family: var(--sans);
+  backdrop-filter: blur(8px);
+}
+.cta-final-form input::placeholder { color: rgba(245,247,249,0.5); }
+.cta-final-form input:focus {
+  outline: none; border-color: var(--destello);
+  box-shadow: 0 0 0 3px rgba(240,200,74,0.2);
+}
+.cta-final-trust { font-size: 12.5px; color: rgba(245,247,249,0.5); }
+
+/* ---------- FOOTER ---------- */
+footer {
+  background: var(--noche);
+  color: rgba(245,247,249,0.7);
+  padding: 3rem 2rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.footer-inner {
+  max-width: 1120px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1.5rem;
+}
+.footer-brand { display: flex; align-items: center; gap: 12px; }
+.footer-brand .nav-logo-main { color: var(--fondo); }
+.footer-brand .nav-logo-sub { color: var(--horizonte); }
+.footer-tagline {
+  font-family: var(--serif); font-style: italic;
+  color: rgba(245,247,249,0.5); font-size: 14px;
+}
+.footer-legal {
+  display: flex; gap: 1.8rem;
+  font-size: 13px;
+}
+.footer-legal a { color: rgba(245,247,249,0.6); transition: color 0.2s; }
+.footer-legal a:hover { color: var(--fondo); }
+
+/* ---------- ANIMATIONS ---------- */
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo" aria-label="Mirador Financiero">
+    <svg class="nav-logo-full" width="188" height="56" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="52" height="52" x="4" y="4" rx="10" fill="#1A3A4A"/>
+      <path d="M14 42 L30 18 L46 42" stroke="#3AAFA9" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path d="M20 42 L30 28 L40 42" stroke="#F0C84A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <circle cx="30" cy="18" r="3" fill="#3AAFA9"/>
+      <text x="68" y="34" font-family="'DM Serif Display', Georgia, serif" font-size="22" font-weight="400" fill="#1A3A4A" letter-spacing="-0.3">Mirador</text>
+      <text x="68" y="48" font-family="'DM Sans', Arial, sans-serif" font-size="10" font-weight="500" fill="#2E6E8E" letter-spacing="2.5">FINANCIERO</text>
+    </svg>
+  </a>
+  <div class="nav-links">
+    <a href="#problema">El problema</a>
+    <a href="#features">Funcionalidades</a>
+    <a href="#precios">Precios</a>
+    <a href="#faq">Preguntas</a>
+    <a href="#cta-final" class="nav-cta">Apúntate gratis</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <svg class="hero-mountains" viewBox="0 0 1440 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="m1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#2E6E8E" stop-opacity="0.15"/>
+        <stop offset="1" stop-color="#2E6E8E" stop-opacity="0.25"/>
+      </linearGradient>
+      <linearGradient id="m2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#3AAFA9" stop-opacity="0.2"/>
+        <stop offset="1" stop-color="#3AAFA9" stop-opacity="0.35"/>
+      </linearGradient>
+    </defs>
+    <path d="M0,260 L0,170 L180,80 L340,140 L520,50 L720,130 L900,70 L1120,150 L1280,90 L1440,140 L1440,260 Z" fill="url(#m1)"/>
+    <path d="M0,260 L0,200 L140,150 L320,190 L500,130 L700,180 L880,140 L1080,200 L1280,160 L1440,190 L1440,260 Z" fill="url(#m2)"/>
+  </svg>
+  <div class="hero-inner">
+    <div class="hero-kicker fade-up">
+      <span class="hero-kicker-dot"></span>
+      Próximamente para España
+    </div>
+    <h1 class="fade-up">Tus finanzas,<br><em>con perspectiva</em></h1>
+    <p class="hero-sub fade-up">La herramienta que te ayuda a entender a dónde va tu dinero, planificar lo que viene y tomar decisiones con cabeza. Sin hojas de cálculo imposibles. Sin tarjetas para empezar.</p>
+    <p class="hero-slogan fade-up">— Que llegar a fin de mes deje de ser una hazaña.</p>
+
+    <form class="hero-form fade-up" id="hero-form" onsubmit="subscribe(event, 'hero')">
+      <input type="email" id="hero-email" placeholder="tu@email.es" required>
+      <button type="submit" class="btn-primary">Quiero acceso anticipado</button>
+    </form>
+    <div id="hero-success" class="hero-success">✓ Gracias. Tienes un email en camino con los próximos pasos.</div>
+
+    <div class="hero-trust fade-up">
+      <span>Sin tarjeta</span><span class="hero-trust-dot">·</span>
+      <span>Sin spam</span><span class="hero-trust-dot">·</span>
+      <span>Los primeros 200 entran como <em>founding members</em></span>
+    </div>
+  </div>
+</header>
+
+<!-- STATS BAR -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stats-item"><span class="stats-icon">🔒</span><span>Datos protegidos RGPD</span></div>
+    <div class="stats-item"><span class="stats-icon">📥</span><span>Importación CSV bancaria</span></div>
+    <div class="stats-item"><span class="stats-icon">🔗</span><span>Conexión PSD2 <em class="stats-soon">próximamente</em></span></div>
+    <div class="stats-item"><span class="stats-icon">🆓</span><span>Plan gratuito para siempre</span></div>
+  </div>
+</div>
+
+<!-- PROBLEMA -->
+<section id="problema" class="problema">
+  <div class="section-inner section-head-center">
+    <span class="section-label fade-up">El problema</span>
+    <h2 class="section-title fade-up">¿Te suena alguna de <em>estas frases</em>?</h2>
+    <p class="section-sub fade-up">No es cuestión de gastar mal. Es cuestión de no tener la foto completa. La intuición financiera, por norma general, no es lo mejor — y no es tu culpa: nadie nos la enseñó.</p>
+    <div class="problema-grid">
+      <div class="problema-card fade-up"><div class="problema-icon">😬</div><p>"Cobré hace diez días y ya no sé a dónde se fue la mitad del sueldo."</p></div>
+      <div class="problema-card fade-up"><div class="problema-icon">📱</div><p>"Tengo tres suscripciones que ya no uso pero siguen cobrándome cada mes."</p></div>
+      <div class="problema-card fade-up"><div class="problema-icon">📈</div><p>"Quiero invertir, pero no sé si puedo permitirme perder ese dinero si lo necesito."</p></div>
+      <div class="problema-card fade-up"><div class="problema-icon">🧾</div><p>"Soy autónomo y cada trimestre Hacienda me pilla por sorpresa."</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="features">
+  <div class="section-inner section-head-center">
+    <span class="section-label fade-up">Qué hace Mirador Financiero</span>
+    <h2 class="section-title fade-up">Todo lo que necesitas,<br><em>nada de lo que no</em></h2>
+    <p class="section-sub fade-up">Sin funciones de relleno. Sin dashboards que nadie entiende. Empezamos resolviendo lo esencial: el presupuesto y el ahorro. Lo demás llegará cuando toque.</p>
+    <div class="features-grid">
+      <div class="feature fade-up">
+        <div class="feature-icon">📊</div>
+        <h3>Control de gastos</h3>
+        <p>Registra o importa tus movimientos, categorízalos y entiende tu patrón de gasto de un vistazo. Hasta 8 categorías en gratuito, ilimitadas en premium.</p>
+        <span class="feature-badge gratuito">Gratuito</span>
+      </div>
+      <div class="feature fade-up">
+        <div class="feature-icon">🎯</div>
+        <h3>Presupuesto mensual</h3>
+        <p>Fija un tope por categoría y ve el progreso en tiempo real. Mirador Financiero te avisa antes de que te pases, no después.</p>
+        <span class="feature-badge gratuito">Gratuito</span>
+      </div>
+      <div class="feature fade-up">
+        <div class="feature-icon">🏔️</div>
+        <h3>Objetivos de ahorro</h3>
+        <p>Vacaciones, fondo de emergencia, entrada de piso. Ponle nombre, importe y fecha, y Mirador Financiero te dice si vas bien. Uno en gratuito, los que quieras en premium.</p>
+        <span class="feature-badge gratuito">Gratuito</span>
+      </div>
+      <div class="feature fade-up">
+        <div class="feature-icon">🗓️</div>
+        <h3>Planificación a largo plazo</h3>
+        <p>Proyecciones y simulador de escenarios. ¿Qué pasa si cambio de sueldo? ¿Si compro vivienda? ¿Si me jubilo dentro de 20 años?</p>
+        <span class="feature-badge premium">Premium</span>
+      </div>
+      <div class="feature fade-up">
+        <div class="feature-icon">📑</div>
+        <h3>Informes y alertas</h3>
+        <p>Resúmenes mensuales y anuales automáticos, con análisis de tendencias. Alertas cuando algo se desvía del plan o aparece un gasto recurrente nuevo.</p>
+        <span class="feature-badge premium">Premium</span>
+      </div>
+      <div class="feature fade-up">
+        <div class="feature-icon">📈</div>
+        <h3>Portfolio de inversión</h3>
+        <p>Seguimiento de acciones, fondos y ETFs con rentabilidad real. Llega cuando el Planner tenga tracción: queremos construirlo bien, no pronto.</p>
+        <span class="feature-badge proximamente">Próximamente</span>
+      </div>
+      <div class="feature fade-up">
+        <div class="feature-icon">🧾</div>
+        <h3>Módulo autónomos</h3>
+        <p>IVA e IRPF trimestral automático, separación de gastos deducibles, resumen para tu gestor. En roadmap después del módulo de inversión.</p>
+        <span class="feature-badge proximamente">Próximamente</span>
+      </div>
+      <div class="feature fade-up">
+        <div class="feature-icon">📤</div>
+        <h3>Exportación avanzada</h3>
+        <p>Formato Excel compatible con las plantillas Mirador Financiero. Exportas, abres la plantilla, y tus gráficos y análisis se actualizan automáticamente.</p>
+        <span class="feature-badge premium">Premium</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAS -->
+<section class="personas">
+  <div class="section-inner section-head-center">
+    <span class="section-label fade-up">Para quién es</span>
+    <h2 class="section-title fade-up">Mirador Financiero es para ti <em>si te reconoces aquí</em></h2>
+    <p class="section-sub fade-up">No somos una app genérica. Construimos para tres tipos de personas muy concretas, y arrancamos con la primera.</p>
+    <div class="personas-grid">
+      <div class="persona primary fade-up">
+        <div class="persona-icon">🗺️</div>
+        <h3>El Planificador</h3>
+        <div class="persona-role">El que quiere tener todo bajo control</div>
+        <p>Vives con cierta ansiedad financiera. No es que gastes mal — es que no tienes visibilidad. Quieres un plan, no un registro histórico de errores.</p>
+        <ul>
+          <li>Presupuesto detallado con alertas</li>
+          <li>Objetivos múltiples en paralelo</li>
+          <li>Proyecciones a medio y largo plazo</li>
+        </ul>
+      </div>
+      <div class="persona fade-up">
+        <div class="persona-icon">📊</div>
+        <h3>El Inversor</h3>
+        <div class="persona-role">El que ya invierte y quiere perspectiva</div>
+        <p>Tienes fondos, ETFs o acciones. Pero no sabes exactamente cuánto has ganado ni cómo encaja en tu situación real.</p>
+        <ul>
+          <li>Portfolio tracker con rentabilidad real</li>
+          <li>Integración con gastos e ingresos</li>
+          <li>Cálculo de patrimonio neto</li>
+        </ul>
+      </div>
+      <div class="persona fade-up">
+        <div class="persona-icon">💼</div>
+        <h3>El Autónomo</h3>
+        <div class="persona-role">El que mezcla lo personal y lo profesional</div>
+        <p>Facturas, gastos deducibles, retenciones. Cada trimestre es un caos. En enero, cuando llega el IRPF anual, te arrepientes.</p>
+        <ul>
+          <li>Cálculo IVA/IRPF trimestral</li>
+          <li>Separación personal vs. profesional</li>
+          <li>Resumen exportable para el gestor</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="como">
+  <div class="section-inner section-head-center como-inner">
+    <span class="section-label fade-up">Cómo funciona</span>
+    <h2 class="section-title fade-up">En marcha en <em>menos de diez minutos</em></h2>
+    <p class="section-sub fade-up">Sin conectar tu banco si no quieres. Sin instalar nada. Funciona desde el navegador y como app en tu móvil.</p>
+    <div class="como-steps">
+      <div class="como-step fade-up">
+        <div class="como-step-num">1</div>
+        <h4>Crea tu cuenta</h4>
+        <p>30 segundos, sin tarjeta, sin compromisos. El plan gratuito no caduca.</p>
+      </div>
+      <div class="como-step fade-up">
+        <div class="como-step-num">2</div>
+        <h4>Importa o introduce</h4>
+        <p>CSV de tu banco (BBVA, CaixaBank, Santander, ING…) o a mano. Tú eliges.</p>
+      </div>
+      <div class="como-step fade-up">
+        <div class="como-step-num">3</div>
+        <h4>Define tu plan</h4>
+        <p>Mirador Financiero sugiere un presupuesto con tus datos reales. Ajústalo, añade objetivos.</p>
+      </div>
+      <div class="como-step fade-up">
+        <div class="como-step-num">4</div>
+        <h4>Revisa 30 min/mes</h4>
+        <p>Un resumen semanal automático. Una revisión mensual relajada. Lo justo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD PREVIEW -->
+<section class="preview">
+  <div class="preview-inner">
+    <div class="preview-head section-head-center">
+      <span class="section-label fade-up">Vista previa</span>
+      <h2 class="section-title fade-up">Así se siente la <em>perspectiva</em></h2>
+      <p class="section-sub fade-up">Un dashboard tranquilo, sin ruido. Ves lo que importa y dejas fuera lo que no.</p>
+    </div>
+    <div class="dashboard fade-up">
+      <div class="dash-greeting">Buenos días, <span>José Luis</span> 👋</div>
+      <div class="dash-kpis">
+        <div class="kpi">
+          <div class="kpi-label">Ingresos · Abril</div>
+          <div class="kpi-value">2.400 €</div>
+          <div class="kpi-meta">↑ vs mes anterior</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Gastos · Abril</div>
+          <div class="kpi-value">1.680 €</div>
+          <div class="kpi-meta alerta">70% del presupuesto</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Ahorro neto</div>
+          <div class="kpi-value">+720 €</div>
+          <div class="kpi-meta">Fondo emergencia: 64% ✓</div>
+        </div>
+      </div>
+      <div class="dash-section-title">Últimos movimientos</div>
+      <div class="dash-rows">
+        <div class="dash-row">
+          <div class="dash-row-left">
+            <div class="dash-row-icon">💼</div>
+            <div>
+              <div class="dash-row-name">Nómina abril</div>
+              <div class="dash-row-cat">Ingresos</div>
+            </div>
+          </div>
+          <div class="dash-row-amount pos">+2.400 €</div>
+        </div>
+        <div class="dash-row">
+          <div class="dash-row-left">
+            <div class="dash-row-icon">🛒</div>
+            <div>
+              <div class="dash-row-name">Mercadona</div>
+              <div class="dash-row-cat">Alimentación</div>
+            </div>
+          </div>
+          <div class="dash-row-amount neg">−87 €</div>
+        </div>
+        <div class="dash-row">
+          <div class="dash-row-left">
+            <div class="dash-row-icon">📺</div>
+            <div>
+              <div class="dash-row-name">Netflix</div>
+              <div class="dash-row-cat">Suscripciones</div>
+            </div>
+          </div>
+          <div class="dash-row-amount neg">−18 €</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSISTEMA -->
+<section class="ecosistema">
+  <div class="section-inner section-head-center">
+    <span class="section-label fade-up">El ecosistema</span>
+    <h2 class="section-title fade-up">Más que una app.<br><em>Un punto de partida.</em></h2>
+    <p class="section-sub fade-up">Mirador Financiero es una herramienta, sí, pero también un espacio donde aprender y aplicar al mismo tiempo.</p>
+    <div class="eco-grid">
+      <div class="eco-card fade-up">
+        <div class="eco-icon">📱</div>
+        <div class="eco-label">La app</div>
+        <h3>Tu centro de control</h3>
+        <p>Gastos, presupuesto, objetivos e inversiones en un solo lugar. Cinco minutos al día y te cambia la perspectiva.</p>
+        <div class="eco-status">Disponible pronto</div>
+      </div>
+      <div class="eco-card fade-up">
+        <div class="eco-icon">📚</div>
+        <div class="eco-label">El blog</div>
+        <h3>Finanzas sin jerga</h3>
+        <p>Artículos prácticos sobre presupuesto, ahorro, inversión y planificación. Escritos para personas reales, no para economistas.</p>
+        <div class="eco-status">Ya publicando</div>
+      </div>
+      <div class="eco-card fade-up">
+        <div class="eco-icon">🎓</div>
+        <div class="eco-label">El curso gratuito</div>
+        <h3>Organiza tus finanzas desde cero</h3>
+        <p>Un curso práctico y gratuito para sentar bases: presupuesto, fondo de emergencia, deudas, primeros pasos. Sin rodeos.</p>
+        <div class="eco-status">Próximamente · Gratis</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section id="precios" class="precios">
+  <div class="section-inner section-head-center">
+    <span class="section-label fade-up">Precios</span>
+    <h2 class="section-title fade-up">Empieza gratis.<br><em>Crece cuando quieras.</em></h2>
+    <p class="section-sub fade-up">El plan gratuito no caduca. No hace falta poner tarjeta para empezar. Si te suscribes a premium y no te convence, devolución íntegra en 30 días sin preguntas.</p>
+    <div class="precios-grid">
+      <div class="plan fade-up">
+        <div class="plan-name">Gratuito</div>
+        <div class="plan-tagline">Empieza a entender tus finanzas</div>
+        <div class="plan-price">0 €<span> / mes</span></div>
+        <div class="plan-price-note">Para siempre. Sin tarjeta.</div>
+        <ul>
+          <li class="yes">Registro ilimitado de gastos e ingresos</li>
+          <li class="yes">Hasta 8 categorías personalizadas</li>
+          <li class="yes">Presupuesto mensual con desglose por categoría</li>
+          <li class="yes">Historial de los últimos 90 días</li>
+          <li class="yes">1 objetivo de ahorro activo</li>
+          <li class="yes">Exportación básica CSV</li>
+          <li class="no">Historial completo y comparativas anuales</li>
+          <li class="no">Objetivos ilimitados</li>
+          <li class="no">Planificación a medio y largo plazo</li>
+          <li class="no">Informes y alertas personalizadas</li>
+        </ul>
+        <a href="#cta-final" class="plan-cta secondary">Apúntate gratis</a>
+      </div>
+      <div class="plan featured fade-up">
+        <div class="plan-name">Premium</div>
+        <div class="plan-tagline">Toma el control</div>
+        <div class="plan-price">5,99 €<span> / mes</span></div>
+        <div class="plan-price-note">O 59,90 € / año · 2 meses gratis</div>
+        <ul>
+          <li class="yes">Todo lo del gratuito, <strong>sin límites</strong></li>
+          <li class="yes">Categorías y subcategorías ilimitadas</li>
+          <li class="yes">Presupuesto detallado multinivel con alertas</li>
+          <li class="yes">Historial completo y comparativas año a año</li>
+          <li class="yes">Objetivos de ahorro ilimitados</li>
+          <li class="yes">Planificación a medio y largo plazo</li>
+          <li class="yes">Simulador de escenarios</li>
+          <li class="yes">Informes mensuales y anuales</li>
+          <li class="yes">Exportación compatible con plantillas Mirador Financiero</li>
+          <li class="yes">Soporte prioritario</li>
+        </ul>
+        <a href="#cta-final" class="plan-cta primary">Quiero acceso anticipado</a>
+      </div>
+    </div>
+
+    <!-- ADD-ON BANCARIO -->
+    <div class="addon fade-up">
+      <div class="addon-body">
+        <div class="addon-label">Complemento opcional · Próximamente</div>
+        <h3>Conexión bancaria automática</h3>
+        <p>¿Prefieres no registrar a mano? Conecta tu banco vía PSD2 y que Mirador Financiero lo haga por ti. Será sumable a cualquiera de los dos planes, y lo facturaremos aparte porque tiene coste real por cuenta conectada — así no subimos el precio base para todos. <strong>Aún no está disponible:</strong> lo activaremos en una actualización posterior, y avisaremos con tiempo a quienes lo quieran usar.</p>
+      </div>
+      <div class="addon-price">
+        <div class="addon-price-main">+1,99 €<span> / mes</span></div>
+        <div class="addon-price-sub">o +19,90 € / año · cuando esté disponible</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANTILLAS EXCEL -->
+<section id="plantillas" class="plantillas">
+  <div class="section-inner section-head-center">
+    <span class="section-label fade-up">Plantillas Excel</span>
+    <h2 class="section-title fade-up">Para los que <em>quieren ir más allá</em></h2>
+    <p class="section-sub fade-up">Plantillas profesionales que se conectan de forma nativa con tu exportación premium. Empieza gratis con la plantilla básica; las avanzadas son de compra única, sin suscripción.</p>
+    <div class="plantillas-grid">
+      <div class="plantilla free fade-up">
+        <span class="plantilla-tag free-tag">Gratis</span>
+        <h4>Presupuesto mensual básico</h4>
+        <p>Seguimiento mensual de ingresos, gastos y ahorro con el formato nativo de Mirador Financiero. La puerta de entrada al catálogo: descárgatela a cambio de tu email.</p>
+        <div class="plantilla-price">0 €</div>
+      </div>
+      <div class="plantilla fade-up">
+        <span class="plantilla-tag paid-tag">De pago</span>
+        <h4>Presupuesto familiar anual</h4>
+        <p>Visión completa de ingresos y gastos del hogar a 12 meses vista, con comparativa año anterior.</p>
+        <div class="plantilla-price">9,90 €</div>
+      </div>
+      <div class="plantilla fade-up">
+        <span class="plantilla-tag paid-tag">De pago</span>
+        <h4>Seguimiento de patrimonio neto</h4>
+        <p>Registro mensual de activos y pasivos, con evolución histórica y gráfico de tendencia.</p>
+        <div class="plantilla-price">9,90 €</div>
+      </div>
+      <div class="plantilla fade-up">
+        <span class="plantilla-tag paid-tag">De pago</span>
+        <h4>Planificador de objetivos</h4>
+        <p>Calcula cuánto ahorrar al mes para cumplir varios objetivos con fechas distintas.</p>
+        <div class="plantilla-price">9,90 €</div>
+      </div>
+      <div class="plantilla fade-up">
+        <span class="plantilla-tag paid-tag">De pago</span>
+        <h4>Simulador de hipoteca</h4>
+        <p>Compara escenarios, amortizaciones anticipadas y su impacto real en los intereses pagados.</p>
+        <div class="plantilla-price">9,90 €</div>
+      </div>
+      <div class="plantilla-pack fade-up">
+        <div>
+          <h4>Pack completo — las 4 plantillas de pago</h4>
+          <p>Las cuatro con descuento y actualizaciones incluidas durante 12 meses. La gratuita se incluye también, por supuesto.</p>
+        </div>
+        <div class="plantilla-pack-price">29,90 €</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDING MEMBERS -->
+<section class="founding">
+  <div class="founding-inner">
+    <div class="founding-label fade-up">
+      <span class="founding-label-dot"></span>
+      Plazas limitadas · Founding members
+    </div>
+    <h2 class="fade-up">Los primeros 200.<br><em>Las condiciones son otras.</em></h2>
+    <p class="founding-sub fade-up">Registrarte ahora como <em>founding member</em> no es un descuento cualquiera. Es un acuerdo: tú entras pronto y te comprometes con el producto; nosotros te damos condiciones que no verá nadie más.</p>
+    <div class="founding-grid">
+      <div class="founding-item fade-up"><div class="founding-item-num">3 meses</div><div class="founding-item-label">de premium completo, sin coste</div></div>
+      <div class="founding-item fade-up"><div class="founding-item-num">2,99 €/mes</div><div class="founding-item-label">de por vida al suscribirte</div></div>
+      <div class="founding-item fade-up"><div class="founding-item-num">0,99 €/mes</div><div class="founding-item-label">para el complemento bancario</div></div>
+      <div class="founding-item fade-up"><div class="founding-item-num">−30%</div><div class="founding-item-label">en tu primera plantilla Excel</div></div>
+    </div>
+    <div class="founding-bar fade-up"><div class="founding-bar-fill"></div></div>
+    <div class="founding-counter fade-up"><strong>68</strong> / 200 plazas ocupadas · quedan <strong>132</strong></div>
+    <a href="#cta-final" class="founding-cta fade-up">Reservar mi plaza</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="faq">
+  <div class="section-inner section-head-center">
+    <span class="section-label fade-up">Preguntas frecuentes</span>
+    <h2 class="section-title fade-up">Lo que <em>seguro te preguntas</em></h2>
+    <p class="section-sub fade-up">Y si no está aquí, escríbenos. Las FAQ honestas son las que responden lo que la gente realmente duda, no lo que queda bien.</p>
+    <div class="faq-list">
+      <div class="faq-item fade-up">
+        <div class="faq-q">
+          <div class="faq-q-text">¿Cuándo llegará la conexión bancaria automática y por qué se cobra aparte?</div>
+          <div class="faq-q-icon">+</div>
+        </div>
+        <div class="faq-a">Todavía no está disponible: la activaremos en una actualización posterior al lanzamiento y avisaremos con tiempo. Cuando llegue, la cobraremos aparte porque nos cuesta dinero real: conectar tu cuenta bancaria vía PSD2 requiere pagar a un agregador (Tink, GoCardless, TrueLayer) por cada usuario conectado. Si lo incluyéramos en el premium, subiríamos el precio base para todos, incluso para quienes prefieren registrar manualmente. Nos parece más honesto cobrarlo solo a quien lo usa.</div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q">
+          <div class="faq-q-text">¿Y si me suscribo y no me convence?</div>
+          <div class="faq-q-icon">+</div>
+        </div>
+        <div class="faq-a">Devolución íntegra durante los primeros 30 días, sin preguntas. Escribes un email, te devolvemos el dinero, se acabó. Sin formularios, sin justificaciones, sin retención comercial.</div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q">
+          <div class="faq-q-text">¿Cuándo llegan el módulo de inversión y el de autónomos?</div>
+          <div class="faq-q-icon">+</div>
+        </div>
+        <div class="faq-a">Los dos están en roadmap, pero no vamos a darte una fecha falsa para que te suscribas. El módulo de inversión llega cuando el producto actual tenga tracción que sostenga su desarrollo (aproximadamente, 300 premium activos). El módulo de autónomos, después. Preferimos construir bien lo que hay que pronto lo que no toca.</div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q">
+          <div class="faq-q-text">¿Mis datos bancarios están seguros?</div>
+          <div class="faq-q-icon">+</div>
+        </div>
+        <div class="faq-a">Mirador Financiero cumple RGPD y la normativa europea PSD2. Nunca almacenamos credenciales bancarias — el acceso se gestiona mediante tokens autorizados por tu banco, que tú puedes revocar en cualquier momento. Los datos están cifrados en tránsito y en reposo, alojados en servidores en la UE.</div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q">
+          <div class="faq-q-text">¿Qué pasa con mis datos si cancelo?</div>
+          <div class="faq-q-icon">+</div>
+        </div>
+        <div class="faq-a">Si cancelas el premium, vuelves al plan gratuito sin perder el histórico (aunque el acceso al análisis más antiguo de 90 días se limita). Si cancelas la cuenta por completo, puedes exportar todo en CSV antes y después eliminamos tus datos en un plazo máximo de 30 días, como marca el RGPD.</div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q">
+          <div class="faq-q-text">¿Funciona para autónomos ya, aunque el módulo no esté?</div>
+          <div class="faq-q-icon">+</div>
+        </div>
+        <div class="faq-a">Puedes usar Mirador Financiero como autónomo para la parte de presupuesto y ahorro personal, que es la mitad del trabajo. Lo que no está todavía es el cálculo automático de IVA/IRPF trimestral ni la separación de gastos deducibles. Eso llegará en el módulo dedicado.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-final" class="cta-final">
+  <svg class="cta-final-mountains" viewBox="0 0 1440 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,200 L0,140 L180,80 L340,120 L520,50 L720,100 L900,70 L1120,130 L1280,90 L1440,120 L1440,200 Z" fill="#3AAFA9"/>
+  </svg>
+  <div class="cta-final-inner">
+    <h2 class="fade-up">La perspectiva que te falta<br>está a <em>un email de distancia</em></h2>
+    <p class="fade-up">Apúntate a la lista de espera. Los primeros 200 entran como <em>founding members</em> y bloquean condiciones vitalicias.</p>
+    <form class="cta-final-form fade-up" id="cta-form" onsubmit="subscribe(event, 'cta')">
+      <input type="email" id="cta-email" placeholder="tu@email.es" required>
+      <button type="submit" class="btn-primary">Reservar mi plaza</button>
+    </form>
+    <div id="cta-success" class="hero-success" style="background: rgba(58,175,169,0.2); border-color: rgba(58,175,169,0.4); color: var(--fondo);">✓ Gracias. Te escribiremos pronto.</div>
+    <div class="cta-final-trust fade-up">Sin spam. Te avisamos cuando esté listo. Puedes darte de baja cuando quieras.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="footer-brand" aria-label="Mirador Financiero">
+      <svg width="176" height="53" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="52" height="52" x="4" y="4" rx="10" fill="#2E6E8E"/>
+        <path d="M14 42 L30 18 L46 42" stroke="#3AAFA9" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M20 42 L30 28 L40 42" stroke="#F0C84A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="30" cy="18" r="3" fill="#3AAFA9"/>
+        <text x="68" y="34" font-family="'DM Serif Display', Georgia, serif" font-size="22" font-weight="400" fill="#F5F7F9" letter-spacing="-0.3">Mirador</text>
+        <text x="68" y="48" font-family="'DM Sans', Arial, sans-serif" font-size="10" font-weight="500" fill="#3AAFA9" letter-spacing="2.5">FINANCIERO</text>
+      </svg>
+    </a>
+    <div class="footer-tagline">Tus finanzas, con perspectiva.</div>
+    <div class="footer-legal">
+      <a href="#">Política de privacidad</a>
+      <a href="#">Aviso legal</a>
+      <a href="#">Cookies</a>
+      <a href="#">Contacto</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Fade-up on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// FAQ toggle
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.addEventListener('click', () => item.classList.toggle('open'));
+});
+
+// Subscribe form handler
+function subscribe(e, source) {
+  e.preventDefault();
+  const input = document.getElementById(source + '-email');
+  const email = input.value;
+  if (!email || !email.includes('@')) {
+    alert('Por favor introduce un email válido.');
+    return;
+  }
+  document.getElementById(source + '-form').style.display = 'none';
+  document.getElementById(source + '-success').style.display = 'block';
+  // TODO: aquí conectas con Tally o Brevo vía fetch()
+}
+
+// Staggered animations for first section
+window.addEventListener('load', () => {
+  document.querySelectorAll('.hero .fade-up').forEach((el, i) => {
+    el.style.transitionDelay = (i * 80) + 'ms';
+    setTimeout(() => el.classList.add('visible'), 60);
+  });
+});
+</script>
+
+</body>
+</html>
