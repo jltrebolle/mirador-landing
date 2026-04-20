@@ -1557,8 +1557,8 @@ document.querySelectorAll('.faq-item').forEach(item => {
   item.addEventListener('click', () => item.classList.toggle('open'));
 });
 
-// Subscribe form handler
-function subscribe(e, source) {
+// Subscribe form handler — integrado con Brevo
+async function subscribe(e, source) {
   e.preventDefault();
   const input = document.getElementById(source + '-email');
   const email = input.value;
@@ -1566,9 +1566,24 @@ function subscribe(e, source) {
     alert('Por favor introduce un email válido.');
     return;
   }
+
+  const formData = new FormData();
+  formData.append('EMAIL', email);
+  formData.append('email_address_check', '');
+  formData.append('locale', 'es');
+
+  try {
+    await fetch('https://3d82f5f9.sibforms.com/serve/MUIFAORJ0NgocIZJ8ZGYaiJHzL8poFQBmgeQjBYfAGySejXyUmieEkAboOerhbJ0Z5M9MFg7WeacW373d6ROQT5WDM6Qop8OJw350K1j7IyUelaUQD84A9GrCXf-9M3evk-OVNXtww0PdvUzgEDPGMTWKpcHMUfAreaZTAyHOKUCXaISZeXcwasPIfn904URQeh16bLgZQBEI7RVmA==', {
+      method: 'POST',
+      body: formData,
+      mode: 'no-cors'
+    });
+  } catch(err) {
+    // no-cors: la petición llega a Brevo aunque no podamos leer la respuesta
+  }
+
   document.getElementById(source + '-form').style.display = 'none';
   document.getElementById(source + '-success').style.display = 'block';
-  // TODO: aquí conectas con Tally o Brevo vía fetch()
 }
 
 // Staggered animations for first section
