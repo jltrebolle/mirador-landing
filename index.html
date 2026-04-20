@@ -1557,33 +1557,38 @@ document.querySelectorAll('.faq-item').forEach(item => {
   item.addEventListener('click', () => item.classList.toggle('open'));
 });
 
-// Subscribe form handler — integrado con Brevo
+// Subscribe form handler — vía API serverless
 async function subscribe(e, source) {
   e.preventDefault();
   const input = document.getElementById(source + '-email');
+  const btn = e.target.querySelector('button[type="submit"]');
   const email = input.value;
+
   if (!email || !email.includes('@')) {
     alert('Por favor introduce un email válido.');
     return;
   }
 
-  const formData = new FormData();
-  formData.append('EMAIL', email);
-  formData.append('email_address_check', '');
-  formData.append('locale', 'es');
+  if (btn) btn.disabled = true;
 
   try {
-    await fetch('https://3d82f5f9.sibforms.com/serve/MUIFAORJ0NgocIZJ8ZGYaiJHzL8poFQBmgeQjBYfAGySejXyUmieEkAboOerhbJ0Z5M9MFg7WeacW373d6ROQT5WDM6Qop8OJw350K1j7IyUelaUQD84A9GrCXf-9M3evk-OVNXtww0PdvUzgEDPGMTWKpcHMUfAreaZTAyHOKUCXaISZeXcwasPIfn904URQeh16bLgZQBEI7RVmA==', {
+    const res = await fetch('/api/subscribe', {
       method: 'POST',
-      body: formData,
-      mode: 'no-cors'
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
     });
-  } catch(err) {
-    // no-cors: la petición llega a Brevo aunque no podamos leer la respuesta
-  }
 
-  document.getElementById(source + '-form').style.display = 'none';
-  document.getElementById(source + '-success').style.display = 'block';
+    if (res.ok) {
+      document.getElementById(source + '-form').style.display = 'none';
+      document.getElementById(source + '-success').style.display = 'block';
+    } else {
+      alert('Ha ocurrido un error. Por favor inténtalo de nuevo.');
+      if (btn) btn.disabled = false;
+    }
+  } catch(err) {
+    alert('Ha ocurrido un error. Por favor inténtalo de nuevo.');
+    if (btn) btn.disabled = false;
+  }
 }
 
 // Staggered animations for first section
