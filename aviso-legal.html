@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aviso Legal — Mirador Financiero</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --noche: #1A3A4A; --mirador: #2E6E8E; --horizonte: #3AAFA9;
+  --destello: #F0C84A; --fondo: #F5F7F9; --texto: #1E2D38;
+  --texto-suave: #5A6B78; --blanco: #FFFFFF;
+  --borde: rgba(30,45,56,0.08); --borde-fuerte: rgba(30,45,56,0.15);
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body { font-family: var(--sans); background: var(--fondo); color: var(--texto); font-size: 16px; line-height: 1.7; }
+a { color: var(--mirador); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(245,247,249,0.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--borde);
+  padding: 0 2rem; height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-back { font-size: 14px; color: var(--texto-suave); display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+.nav-back:hover { color: var(--noche); text-decoration: none; }
+.nav-back svg { width: 16px; height: 16px; }
+
+.legal-page { max-width: 760px; margin: 0 auto; padding: 7rem 2rem 6rem; }
+
+.legal-eyebrow {
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--horizonte); font-weight: 600; margin-bottom: 1rem;
+}
+.legal-title {
+  font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--noche); font-weight: 400; line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+.legal-meta { font-size: 13px; color: var(--texto-suave); margin-bottom: 3rem; }
+.legal-divider { border: none; border-top: 2px solid var(--horizonte); opacity: 0.3; margin: 2.5rem 0; }
+
+h2 {
+  font-family: var(--serif); font-size: 1.4rem; color: var(--noche);
+  font-weight: 400; margin: 2.5rem 0 0.8rem;
+}
+h3 { font-size: 1rem; font-weight: 600; color: var(--mirador); margin: 1.8rem 0 0.5rem; }
+p { margin-bottom: 1rem; color: var(--texto); font-size: 15px; }
+ul { padding-left: 1.5rem; margin-bottom: 1rem; }
+li { margin-bottom: 0.5rem; font-size: 15px; color: var(--texto); }
+strong { font-weight: 600; }
+
+.info-box {
+  background: rgba(58,175,169,0.08); border-left: 3px solid var(--horizonte);
+  padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0;
+}
+.info-box p { margin: 0; font-size: 14px; color: var(--texto-suave); }
+
+footer {
+  background: var(--noche); padding: 2.5rem 2rem;
+  display: flex; flex-direction: column; align-items: center; gap: 1rem;
+}
+.footer-legal { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+.footer-legal a { color: rgba(245,247,249,0.5); font-size: 13px; }
+.footer-legal a:hover { color: var(--fondo); text-decoration: none; }
+.footer-copy { color: rgba(245,247,249,0.3); font-size: 12px; }
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+    Volver a Mirador Financiero
+  </a>
+  <svg width="120" height="36" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="52" height="52" x="4" y="4" rx="10" fill="#2E6E8E"/>
+    <path d="M14 42 L30 18 L46 42" stroke="#3AAFA9" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M20 42 L30 28 L40 42" stroke="#F0C84A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <circle cx="30" cy="18" r="3" fill="#3AAFA9"/>
+    <text x="68" y="34" font-family="'DM Serif Display', Georgia, serif" font-size="22" font-weight="400" fill="#1A3A4A" letter-spacing="-0.3">Mirador</text>
+    <text x="68" y="48" font-family="'DM Sans', Arial, sans-serif" font-size="10" font-weight="500" fill="#3AAFA9" letter-spacing="2.5">FINANCIERO</text>
+  </svg>
+</nav>
+<main class="legal-page">
+  <div class="legal-eyebrow">Legal</div>
+  <h1 class="legal-title">Aviso Legal</h1>
+  <p class="legal-meta">Última actualización: abril 2026 · Amautta Soluciones, S.L.</p>
+  <hr class="legal-divider">
+
+  <h2>1. Datos identificativos del titular</h2>
+  <p>En cumplimiento del artículo 10 de la Ley 34/2002 (LSSI-CE), se informa:</p>
+  <ul>
+    <li><strong>Denominación social:</strong> Amautta Soluciones, S.L.</li>
+    <li><strong>CIF:</strong> B88435326</li>
+    <li><strong>Domicilio social:</strong> Avenida de la Dehesa 2, 28702 San Sebastián de los Reyes (Madrid), España</li>
+    <li><strong>Inscripción:</strong> Registro Mercantil de Madrid, Tomo 39379, Folio 56, Hoja M-699208, Inscripción 1ª. Constituida el 5 de julio de 2019 ante la notaria D.ª Ana López-Monis Gallego, protocolo 2019/2642.</li>
+    <li><strong>Email:</strong> <a href="mailto:hola@miradorfinanciero.com">hola@miradorfinanciero.com</a></li>
+    <li><strong>Web:</strong> miradorfinanciero.com</li>
+  </ul>
+
+  <h2>2. Objeto y ámbito de aplicación</h2>
+  <p>El presente aviso legal regula el acceso y uso del sitio web miradorfinanciero.com, titularidad de Amautta Soluciones, S.L. El acceso al sitio web implica la aceptación plena de las condiciones aquí establecidas.</p>
+
+  <h2>3. Propiedad intelectual e industrial</h2>
+  <p>Todos los contenidos del sitio web —textos, imágenes, logotipos, diseño gráfico, código fuente y demás elementos— son titularidad de Amautta Soluciones, S.L. o de sus legítimos titulares, y están protegidos por la legislación española e internacional sobre propiedad intelectual e industrial.</p>
+  <p>Queda expresamente prohibida la reproducción, distribución, comunicación pública o transformación de dichos contenidos sin autorización expresa y por escrito, salvo en los casos previstos por la ley.</p>
+
+  <h2>4. Responsabilidad</h2>
+  <p>Amautta Soluciones, S.L. no garantiza la ausencia de virus u otros elementos que puedan producir alteraciones en el sistema informático del usuario.</p>
+
+  <div class="info-box">
+    <p><strong>Importante:</strong> la información publicada en miradorfinanciero.com tiene carácter meramente informativo y divulgativo, y en ningún caso constituye asesoramiento financiero, fiscal, legal o de inversión. El usuario asume la responsabilidad del uso que haga de la información disponible.</p>
+  </div>
+
+  <h2>5. Legislación aplicable y jurisdicción</h2>
+  <p>Las presentes condiciones se rigen por la legislación española. Para la resolución de cualquier controversia derivada del acceso o uso del sitio web, las partes se someten a los juzgados y tribunales del domicilio del usuario, salvo que la ley establezca otra cosa.</p>
+</main>
+<footer>
+  <div class="footer-legal">
+    <a href="/privacidad.html">Política de privacidad</a>
+    <a href="/aviso-legal.html">Aviso legal</a>
+    <a href="/cookies.html">Cookies</a>
+    <a href="mailto:hola@miradorfinanciero.com">Contacto</a>
+  </div>
+  <div class="footer-copy">© 2026 Amautta Soluciones, S.L. · CIF B88435326 · Mirador Financiero</div>
+</footer>
+</body>
+</html>
