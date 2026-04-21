@@ -1600,5 +1600,81 @@ window.addEventListener('load', () => {
 });
 </script>
 
+<!-- BANNER DE COOKIES -->
+<style>
+#cookie-banner {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
+  background: var(--noche);
+  border-top: 2px solid var(--horizonte);
+  padding: 1.25rem 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1.5rem; flex-wrap: wrap;
+  box-shadow: 0 -4px 24px rgba(26,58,74,0.18);
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+#cookie-banner.visible { transform: translateY(0); }
+.cookie-text {
+  flex: 1; min-width: 280px;
+  font-size: 13.5px; color: rgba(245,247,249,0.85);
+  line-height: 1.5;
+}
+.cookie-text a { color: var(--horizonte); text-decoration: underline; }
+.cookie-actions { display: flex; gap: 10px; flex-shrink: 0; flex-wrap: wrap; }
+.cookie-btn {
+  padding: 10px 22px; border-radius: 999px;
+  font-family: var(--sans); font-size: 13.5px; font-weight: 600;
+  cursor: pointer; border: none; transition: all 0.2s; white-space: nowrap;
+}
+.cookie-btn-accept { background: var(--destello); color: var(--noche); }
+.cookie-btn-accept:hover { background: #D9AE2C; transform: translateY(-1px); }
+.cookie-btn-reject {
+  background: transparent; color: rgba(245,247,249,0.7);
+  border: 1px solid rgba(245,247,249,0.2);
+}
+.cookie-btn-reject:hover { background: rgba(245,247,249,0.08); color: rgba(245,247,249,0.95); }
+@media (max-width: 600px) {
+  #cookie-banner { padding: 1rem 1.2rem; }
+  .cookie-actions { width: 100%; }
+  .cookie-btn { flex: 1; text-align: center; }
+}
+</style>
+
+<div id="cookie-banner" role="dialog" aria-label="Aviso de cookies">
+  <p class="cookie-text">
+    Usamos cookies propias y de terceros para analizar el uso del sitio y mejorar tu experiencia.
+    Puedes aceptarlas o rechazarlas. <a href="/cookies.html">Más información</a>
+  </p>
+  <div class="cookie-actions">
+    <button class="cookie-btn cookie-btn-reject" onclick="cookieChoice(false)">Rechazar</button>
+    <button class="cookie-btn cookie-btn-accept" onclick="cookieChoice(true)">Aceptar</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  var consent = localStorage.getItem("mirador_cookie_consent");
+  if (!consent) {
+    setTimeout(function() {
+      var b = document.getElementById("cookie-banner");
+      if (b) b.classList.add("visible");
+    }, 800);
+  } else if (consent === "true") {
+    loadAnalytics();
+  }
+})();
+
+function cookieChoice(accepted) {
+  localStorage.setItem("mirador_cookie_consent", accepted ? "true" : "false");
+  var b = document.getElementById("cookie-banner");
+  if (b) { b.style.transform = "translateY(100%)"; setTimeout(function(){ b.style.display="none"; }, 350); }
+  if (accepted) loadAnalytics();
+}
+
+function loadAnalytics() {
+  // Activar GA4 aqui cuando tengas el ID: G-XXXXXXXXXX
+}
+<\/script>
+
 </body>
 </html>
