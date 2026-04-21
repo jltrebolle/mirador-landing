@@ -40,7 +40,7 @@ module.exports = async function handler(req, res) {
         sender: { name: 'Mirador Financiero', email: 'hola@miradorfinanciero.com' },
         to: [{ email }],
         subject: 'Ya estás en la lista — Mirador Financiero',
-        htmlContent: '<p>Hola,</p><p>Gracias por apuntarte a la lista de espera de <strong>Mirador Financiero</strong>.</p><p>Te avisaremos en cuanto esté listo. Serás de los primeros en entrar.</p><p>— José Luis<br>Mirador Financiero</p>',
+        htmlContent: '<p>Hola,</p><p>Gracias por apuntarte a la lista de espera de <strong>Mirador Financiero</strong>.</p><p>Te avisaremos en cuanto esté listo. Serás de los primeros en entrar.</p><p>— Mirador Financiero</p>',
       }),
     });
 
