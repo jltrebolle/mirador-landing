@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
   }
 
   // Credenciales de Brevo (usar variables de entorno en Vercel)
-  const brevoApiKey = process.env.BREVO_API_KEY;
+  const brevoApiKey = process.env.BREVO_API_KEY2;
   const listId = 3; // Lista de espera Mirador
 
   if (!brevoApiKey) {
