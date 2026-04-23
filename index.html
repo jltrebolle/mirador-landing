@@ -1542,10 +1542,10 @@ footer {
     </a>
     <div class="footer-tagline">Tus finanzas, con perspectiva.</div>
     <div class="footer-legal">
-      <a href="#">Política de privacidad</a>
-      <a href="#">Aviso legal</a>
-      <a href="#">Cookies</a>
-      <a href="#">Contacto</a>
+      <a href="/privacidad.html">Política de privacidad</a>
+      <a href="/aviso-legal.html">Aviso legal</a>
+      <a href="/cookies.html">Cookies</a>
+      <a href="mailto:hola@miradorfinanciero.com">Contacto</a>
     </div>
   </div>
 </footer>
@@ -1572,13 +1572,34 @@ function subscribe(e, source) {
   e.preventDefault();
   const input = document.getElementById(source + '-email');
   const email = input.value;
-  if (!email || !email.includes('@')) {
+  const form = document.getElementById(source + '-form');
+  const success = document.getElementById(source + '-success');
+  
+  if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
     alert('Por favor introduce un email válido.');
     return;
   }
-  document.getElementById(source + '-form').style.display = 'none';
-  document.getElementById(source + '-success').style.display = 'block';
-  // TODO: aquí conectas con Tally o Brevo vía fetch()
+
+  const button = form.querySelector('button');
+  button.disabled = true;
+  button.textContent = 'Procesando...';
+
+  fetch('/api/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email })
+  })
+    .then(response => response.json())
+    .then(data => {
+      form.style.display = 'none';
+      success.style.display = 'block';
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error al procesar la suscripción. Intenta más tarde.');
+      button.disabled = false;
+      button.textContent = 'Quiero acceso anticipado';
+    });
 }
 
 // Staggered animations for first section
