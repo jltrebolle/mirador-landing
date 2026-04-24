@@ -37,7 +37,7 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overflow-x: hidden; }
 
 body {
   font-family: var(--sans);
@@ -45,7 +45,6 @@ body {
   color: var(--texto);
   font-size: 16px;
   line-height: 1.65;
-  overflow-x: hidden;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -1062,10 +1061,19 @@ footer {
   gap: 1.5rem;
   flex-wrap: wrap;
   box-shadow: 0 -4px 24px rgba(26,58,74,0.18);
-  transform: translateY(100%);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translateY(20px);
+  transform: translateY(20px);
+  -webkit-transition: opacity 0.4s ease, -webkit-transform 0.4s ease, visibility 0.4s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
 }
-#cookie-banner.visible { transform: translateY(0); }
+#cookie-banner.visible {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}
 .cookie-text {
   flex: 1; font-size: 13.5px; line-height: 1.55;
   color: rgba(245,247,249,0.85); min-width: 240px;
@@ -1712,7 +1720,6 @@ function toggleNav() {
   const burger = document.querySelector('.nav-burger');
   const isOpen = nav.classList.toggle('nav-open');
   burger.setAttribute('aria-expanded', isOpen);
-  document.body.style.overflow = isOpen ? 'hidden' : '';
 }
 document.querySelectorAll('.nav-links a').forEach(link => {
   link.addEventListener('click', () => {
@@ -1720,14 +1727,12 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     if (nav.classList.contains('nav-open')) {
       nav.classList.remove('nav-open');
       document.querySelector('.nav-burger').setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
     }
   });
 });
 window.addEventListener('resize', () => {
   if (window.innerWidth > 780) {
     document.querySelector('nav').classList.remove('nav-open');
-    document.body.style.overflow = '';
   }
 });
 
