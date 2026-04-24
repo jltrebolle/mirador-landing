@@ -81,8 +81,59 @@ nav {
 .nav-cta:hover { background: var(--destello-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(240,200,74,0.5); }
 @media (max-width: 780px) {
   nav { padding: 0 1.2rem; }
-  .nav-links > a:not(.nav-cta) { display: none; }
+
+  .nav-links {
+    display: none;
+    position: fixed;
+    top: 68px; left: 0; right: 0;
+    background: rgba(245,247,249,0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem 1.2rem 1.5rem;
+    border-bottom: 1px solid rgba(30,45,56,0.1);
+    gap: 0;
+    z-index: 99;
+    box-shadow: 0 8px 24px rgba(26,58,74,0.1);
+  }
+  nav.nav-open .nav-links { display: flex; }
+  .nav-links a:not(.nav-cta) {
+    padding: 0.85rem 0.5rem;
+    border-bottom: 1px solid rgba(30,45,56,0.06);
+    font-size: 15px;
+    color: var(--texto);
+  }
+  .nav-links a:not(.nav-cta):last-of-type { border-bottom: none; }
+  .nav-cta { margin-top: 0.75rem; text-align: center; padding: 12px 18px; }
+  .nav-burger { display: flex; }
 }
+
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px; height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.nav-burger:hover { background: rgba(26,58,74,0.06); }
+.nav-burger span {
+  display: block;
+  height: 2px;
+  background: var(--noche);
+  border-radius: 2px;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center;
+}
+nav.nav-open .nav-burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+nav.nav-open .nav-burger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+nav.nav-open .nav-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ---------- HERO ---------- */
 .hero {
@@ -605,23 +656,20 @@ section { padding: 6rem 2rem; position: relative; }
   font-family: var(--serif); font-size: 3rem;
   color: var(--noche); font-weight: 400;
   line-height: 1; margin-bottom: 0.3rem;
-  display: flex; align-items: baseline; gap: 0.1em;
-  flex-wrap: nowrap;
 }
 .plan-price span {
   font-size: 1rem; color: var(--texto-suave);
-  font-family: var(--sans); white-space: nowrap;
+  font-family: var(--sans);
 }
 .plan-price-note {
   font-size: 13px; color: var(--texto-suave);
   margin-bottom: 1.8rem;
 }
-.plan ul { list-style: none; margin-bottom: 2rem; text-align: left; }
+.plan ul { list-style: none; margin-bottom: 2rem; }
 .plan li {
   padding: 8px 0; font-size: 0.94rem;
   color: var(--texto); line-height: 1.5;
   display: flex; align-items: flex-start; gap: 10px;
-  text-align: left;
 }
 .plan li.yes::before {
   content: '✓'; color: var(--horizonte); font-weight: 700;
@@ -1000,6 +1048,77 @@ footer {
 /* ---------- ANIMATIONS ---------- */
 .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
 .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- COOKIE BANNER ---------- */
+#cookie-banner {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 9999;
+  background: var(--noche);
+  color: var(--fondo);
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  box-shadow: 0 -4px 24px rgba(26,58,74,0.18);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+#cookie-banner.visible { transform: translateY(0); }
+.cookie-text {
+  flex: 1; font-size: 13.5px; line-height: 1.55;
+  color: rgba(245,247,249,0.85); min-width: 240px;
+}
+.cookie-text a { color: var(--horizonte); text-decoration: underline; text-underline-offset: 3px; }
+.cookie-text a:hover { color: var(--destello); }
+.cookie-actions { display: flex; gap: 0.75rem; flex-shrink: 0; flex-wrap: wrap; }
+.cookie-btn {
+  padding: 9px 20px; border-radius: 999px;
+  font-family: var(--sans); font-size: 13.5px; font-weight: 600;
+  cursor: pointer; border: none; transition: all 0.18s; white-space: nowrap;
+}
+.cookie-btn-accept { background: var(--horizonte); color: #fff; }
+.cookie-btn-accept:hover { background: #2d9a94; transform: translateY(-1px); }
+.cookie-btn-reject { background: transparent; color: rgba(245,247,249,0.75); border: 1.5px solid rgba(245,247,249,0.25); }
+.cookie-btn-reject:hover { border-color: rgba(245,247,249,0.55); color: var(--fondo); }
+@media (max-width: 600px) {
+  #cookie-banner { flex-direction: column; align-items: flex-start; gap: 1rem; padding: 1.25rem 1.25rem 1.5rem; }
+  .cookie-actions { width: 100%; }
+  .cookie-btn { flex: 1; text-align: center; }
+}
+
+/* ---------- MOBILE RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .personas, .preview, .ecosistema, .plantillas { display: none; }
+  section { padding: 3.5rem 1.25rem; }
+  .hero { padding: 7rem 1.25rem 5rem; }
+  .hero h1 { font-size: 2.4rem; }
+  .hero-sub { font-size: 1rem; margin-bottom: 1.8rem; }
+  .hero-slogan { display: none; }
+  .hero-form { flex-direction: column; gap: 8px; max-width: 100%; }
+  .hero-form input { min-width: 0; width: 100%; padding: 14px 18px; }
+  .hero-form .btn-primary { width: 100%; padding: 14px 18px; }
+  .hero-trust { font-size: 12px; gap: 10px; }
+  .stats { padding: 1.5rem 1.25rem; }
+  .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .problema-card { padding: 1.5rem 1.25rem; }
+  .features-grid { grid-template-columns: 1fr; }
+  .feature { padding: 1.6rem 1.4rem; }
+  .como { padding: 3.5rem 1.25rem; }
+  .founding { padding: 3.5rem 1.25rem; }
+  .founding h2 { font-size: 1.75rem; }
+  .founding-sub { font-size: 0.95rem; }
+  .precios { padding: 3.5rem 1.25rem; }
+  .precio-card { padding: 2rem 1.5rem; }
+  .faq { padding: 3.5rem 1.25rem; }
+  .cta-final { padding: 4rem 1.25rem; }
+  .cta-final h2 { font-size: 1.9rem; }
+  .cta-final-form { flex-direction: column; gap: 8px; }
+  .cta-final-form input, .cta-final-form .btn-primary { width: 100%; }
+  .footer-inner { flex-direction: column; align-items: center; text-align: center; gap: 1.25rem; }
+  .footer-legal { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+}
 </style>
 </head>
 <body>
@@ -1023,6 +1142,11 @@ footer {
     <a href="#faq">Preguntas</a>
     <a href="#cta-final" class="nav-cta">Apúntate gratis</a>
   </div>
+  <button class="nav-burger" onclick="toggleNav()" aria-label="Menú" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -1084,7 +1208,7 @@ footer {
       <div class="problema-card fade-up"><div class="problema-icon">😬</div><p>"Cobré hace diez días y ya no sé a dónde se fue la mitad del sueldo."</p></div>
       <div class="problema-card fade-up"><div class="problema-icon">📱</div><p>"Tengo tres suscripciones que ya no uso pero siguen cobrándome cada mes."</p></div>
       <div class="problema-card fade-up"><div class="problema-icon">📈</div><p>"Quiero invertir, pero no sé si puedo permitirme perder ese dinero si lo necesito."</p></div>
-      <div class="problema-card fade-up"><div class="problema-icon">🗂️</div><p>"Trabajo por cuenta propia y no sé qué es gasto personal y qué es de la actividad. Todo mezclado."</p></div>
+      <div class="problema-card fade-up"><div class="problema-icon">🧾</div><p>"Soy autónomo y cada trimestre Hacienda me pilla por sorpresa."</p></div>
     </div>
   </div>
 </section>
@@ -1129,13 +1253,13 @@ footer {
       <div class="feature fade-up">
         <div class="feature-icon">📈</div>
         <h3>Portfolio de inversión</h3>
-        <p>Seguimiento de acciones, fondos y ETFs con rentabilidad real. Lo activaremos cuando hayamos comprobado que existe demanda suficiente para construirlo bien.</p>
+        <p>Seguimiento de acciones, fondos y ETFs con rentabilidad real. Llega cuando el Planner tenga tracción: queremos construirlo bien, no pronto.</p>
         <span class="feature-badge proximamente">Próximamente</span>
       </div>
       <div class="feature fade-up">
-        <div class="feature-icon">🗂️</div>
-        <h3>Separación personal / negocio</h3>
-        <p>Diferencia gastos personales y profesionales desde el registro. Una foto limpia de cada ámbito, sin mezclas. Útil si tienes actividad por cuenta propia o gestionas más de un bolsillo.</p>
+        <div class="feature-icon">🧾</div>
+        <h3>Módulo autónomos</h3>
+        <p>IVA e IRPF trimestral automático, separación de gastos deducibles, resumen para tu gestor. En roadmap después del módulo de inversión.</p>
         <span class="feature-badge proximamente">Próximamente</span>
       </div>
       <div class="feature fade-up">
@@ -1181,11 +1305,11 @@ footer {
         <div class="persona-icon">💼</div>
         <h3>El Autónomo</h3>
         <div class="persona-role">El que mezcla lo personal y lo profesional</div>
-        <p>Ingresos variables, gastos que a veces son de empresa y a veces personales. Necesitas claridad, no más caos encima del caos.</p>
+        <p>Facturas, gastos deducibles, retenciones. Cada trimestre es un caos. En enero, cuando llega el IRPF anual, te arrepientes.</p>
         <ul>
-          <li>Categorías diferenciadas personal / negocio</li>
-          <li>Presupuesto separado por ámbito</li>
-          <li>Exportación para trabajar con tu gestor</li>
+          <li>Cálculo IVA/IRPF trimestral</li>
+          <li>Separación personal vs. profesional</li>
+          <li>Resumen exportable para el gestor</li>
         </ul>
       </div>
     </div>
@@ -1330,7 +1454,7 @@ footer {
         <div class="plan-name">Gratuito</div>
         <div class="plan-tagline">Empieza a entender tus finanzas</div>
         <div class="plan-price">0 €<span> / mes</span></div>
-        <div class="plan-price-note">Para siempre. Sin tarjeta. IVA incluido.</div>
+        <div class="plan-price-note">Para siempre. Sin tarjeta.</div>
         <ul>
           <li class="yes">Registro ilimitado de gastos e ingresos</li>
           <li class="yes">Hasta 8 categorías personalizadas</li>
@@ -1348,8 +1472,8 @@ footer {
       <div class="plan featured fade-up">
         <div class="plan-name">Premium</div>
         <div class="plan-tagline">Toma el control</div>
-        <div class="plan-price">9 €<span> / mes</span></div>
-        <div class="plan-price-note">O 90 € / año · 2 meses gratis · IVA incluido</div>
+        <div class="plan-price">5,99 €<span> / mes</span></div>
+        <div class="plan-price-note">O 59,90 € / año · 2 meses gratis</div>
         <ul>
           <li class="yes">Todo lo del gratuito, <strong>sin límites</strong></li>
           <li class="yes">Categorías y subcategorías ilimitadas</li>
@@ -1374,8 +1498,8 @@ footer {
         <p>¿Prefieres no registrar a mano? Conecta tu banco vía PSD2 y que Mirador Financiero lo haga por ti. Será sumable a cualquiera de los dos planes, y lo facturaremos aparte porque tiene coste real por cuenta conectada — así no subimos el precio base para todos. <strong>Aún no está disponible:</strong> lo activaremos en una actualización posterior, y avisaremos con tiempo a quienes lo quieran usar.</p>
       </div>
       <div class="addon-price">
-        <div class="addon-price-main">+2 €<span> / mes</span></div>
-        <div class="addon-price-sub">o +20 € / año · cuando esté disponible</div>
+        <div class="addon-price-main">+1,99 €<span> / mes</span></div>
+        <div class="addon-price-sub">o +19,90 € / año · cuando esté disponible</div>
       </div>
     </div>
   </div>
@@ -1440,8 +1564,8 @@ footer {
     <p class="founding-sub fade-up">Registrarte ahora como <em>founding member</em> no es un descuento cualquiera. Es un acuerdo: tú entras pronto y te comprometes con el producto; nosotros te damos condiciones que no verá nadie más.</p>
     <div class="founding-grid">
       <div class="founding-item fade-up"><div class="founding-item-num">3 meses</div><div class="founding-item-label">de premium completo, sin coste</div></div>
-      <div class="founding-item fade-up"><div class="founding-item-num">4,50 €/mes</div><div class="founding-item-label">en la suscripción premium, de por vida</div></div>
-      <div class="founding-item fade-up"><div class="founding-item-num">1 €/mes</div><div class="founding-item-label">para el complemento bancario</div></div>
+      <div class="founding-item fade-up"><div class="founding-item-num">2,99 €/mes</div><div class="founding-item-label">de por vida al suscribirte</div></div>
+      <div class="founding-item fade-up"><div class="founding-item-num">0,99 €/mes</div><div class="founding-item-label">para el complemento bancario</div></div>
       <div class="founding-item fade-up"><div class="founding-item-num">−30%</div><div class="founding-item-label">en tu primera plantilla Excel</div></div>
     </div>
     <div class="founding-bar fade-up"><div class="founding-bar-fill"></div></div>
@@ -1473,17 +1597,10 @@ footer {
       </div>
       <div class="faq-item fade-up">
         <div class="faq-q">
-          <div class="faq-q-text">¿Cuándo llega el módulo de inversión?</div>
+          <div class="faq-q-text">¿Cuándo llegan el módulo de inversión y el de autónomos?</div>
           <div class="faq-q-icon">+</div>
         </div>
-        <div class="faq-a">Está en roadmap, pero no vamos a darte una fecha para que te suscribas. Lo activaremos cuando hayamos comprobado que existe demanda suficiente para construirlo bien. Preferimos un módulo sólido que llega cuando toca, a uno apresurado que defrauda.</div>
-      </div>
-      <div class="faq-item fade-up">
-        <div class="faq-q">
-          <div class="faq-q-text">¿Cuándo llega el módulo de separación de gastos personales y de negocio?</div>
-          <div class="faq-q-icon">+</div>
-        </div>
-        <div class="faq-a">Está en roadmap, pero no te vamos a dar una fecha para que te suscribas. Lo que sí está disponible desde el principio es la posibilidad de categorizar tus movimientos con el nivel de detalle que necesites — personal o profesional — usando categorías personalizadas. El módulo específico de separación lo activaremos cuando hayamos validado que existe demanda suficiente para construirlo bien.</div>
+        <div class="faq-a">Los dos están en roadmap, pero no vamos a darte una fecha falsa para que te suscribas. El módulo de inversión llega cuando el producto actual tenga tracción que sostenga su desarrollo (aproximadamente, 300 premium activos). El módulo de autónomos, después. Preferimos construir bien lo que hay que pronto lo que no toca.</div>
       </div>
       <div class="faq-item fade-up">
         <div class="faq-q">
@@ -1501,10 +1618,10 @@ footer {
       </div>
       <div class="faq-item fade-up">
         <div class="faq-q">
-          <div class="faq-q-text">¿Funciona para autónomos aunque el módulo de separación no esté?</div>
+          <div class="faq-q-text">¿Funciona para autónomos ya, aunque el módulo no esté?</div>
           <div class="faq-q-icon">+</div>
         </div>
-        <div class="faq-a">Sí. Puedes usar Mirador Financiero ya para controlar tus gastos e ingresos, separar lo personal de lo profesional mediante categorías personalizadas, y exportar para trabajar con tu gestor. Lo que no hay todavía es automatización específica para esa separación — tendrás que asignar las categorías tú. Eso es lo que llegará en el módulo dedicado.</div>
+        <div class="faq-a">Puedes usar Mirador Financiero como autónomo para la parte de presupuesto y ahorro personal, que es la mitad del trabajo. Lo que no está todavía es el cálculo automático de IVA/IRPF trimestral ni la separación de gastos deducibles. Eso llegará en el módulo dedicado.</div>
       </div>
     </div>
   </div>
@@ -1542,10 +1659,10 @@ footer {
     </a>
     <div class="footer-tagline">Tus finanzas, con perspectiva.</div>
     <div class="footer-legal">
-      <a href="/privacidad.html">Política de privacidad</a>
-      <a href="/aviso-legal.html">Aviso legal</a>
-      <a href="/cookies.html">Cookies</a>
-      <a href="mailto:hola@miradorfinanciero.com">Contacto</a>
+      <a href="#">Política de privacidad</a>
+      <a href="#">Aviso legal</a>
+      <a href="#">Cookies</a>
+      <a href="#">Contacto</a>
     </div>
   </div>
 </footer>
@@ -1572,34 +1689,13 @@ function subscribe(e, source) {
   e.preventDefault();
   const input = document.getElementById(source + '-email');
   const email = input.value;
-  const form = document.getElementById(source + '-form');
-  const success = document.getElementById(source + '-success');
-  
-  if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+  if (!email || !email.includes('@')) {
     alert('Por favor introduce un email válido.');
     return;
   }
-
-  const button = form.querySelector('button');
-  button.disabled = true;
-  button.textContent = 'Procesando...';
-
-  fetch('/api/subscribe', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: email })
-  })
-    .then(response => response.json())
-    .then(data => {
-      form.style.display = 'none';
-      success.style.display = 'block';
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Error al procesar la suscripción. Intenta más tarde.');
-      button.disabled = false;
-      button.textContent = 'Quiero acceso anticipado';
-    });
+  document.getElementById(source + '-form').style.display = 'none';
+  document.getElementById(source + '-success').style.display = 'block';
+  // TODO: aquí conectas con Tally o Brevo vía fetch()
 }
 
 // Staggered animations for first section
@@ -1609,7 +1705,85 @@ window.addEventListener('load', () => {
     setTimeout(() => el.classList.add('visible'), 60);
   });
 });
+
+// ---------- HAMBURGER NAV ----------
+function toggleNav() {
+  const nav = document.querySelector('nav');
+  const burger = document.querySelector('.nav-burger');
+  const isOpen = nav.classList.toggle('nav-open');
+  burger.setAttribute('aria-expanded', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    const nav = document.querySelector('nav');
+    if (nav.classList.contains('nav-open')) {
+      nav.classList.remove('nav-open');
+      document.querySelector('.nav-burger').setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+  });
+});
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 780) {
+    document.querySelector('nav').classList.remove('nav-open');
+    document.body.style.overflow = '';
+  }
+});
+
+// ---------- COOKIE CONSENT + GA4 ----------
+const CONSENT_KEY = 'mirador_cookies_consent';
+const GA4_ID = 'G-XXXXXXXXXX';
+
+function loadGA4() {
+  if (document.getElementById('ga4-script')) return;
+  const s = document.createElement('script');
+  s.id = 'ga4-script';
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID;
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', GA4_ID, { anonymize_ip: true });
+}
+
+function cookieDecision(choice) {
+  localStorage.setItem(CONSENT_KEY, choice);
+  const banner = document.getElementById('cookie-banner');
+  banner.style.transition = 'transform 0.3s ease';
+  banner.style.transform = 'translateY(100%)';
+  setTimeout(() => banner.style.display = 'none', 320);
+  if (choice === 'accepted') loadGA4();
+}
+
+(function initCookieBanner() {
+  const stored = localStorage.getItem(CONSENT_KEY);
+  if (stored === 'accepted') { loadGA4(); return; }
+  if (stored === 'rejected') { return; }
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const banner = document.getElementById('cookie-banner');
+      if (banner) banner.classList.add('visible');
+    }, 800);
+  });
+})();
+
 </script>
+
+
+<div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
+  <p class="cookie-text">
+    Usamos cookies analíticas (Google Analytics 4) para entender cómo se usa el sitio.
+    Nunca vendemos tus datos. Puedes aceptar, rechazar o consultar nuestra
+    <a href="/cookies.html">política de cookies</a>.
+  </p>
+  <div class="cookie-actions">
+    <button class="cookie-btn cookie-btn-reject" onclick="cookieDecision('rejected')">Rechazar</button>
+    <button class="cookie-btn cookie-btn-accept" onclick="cookieDecision('accepted')">Aceptar</button>
+  </div>
+</div>
 
 </body>
 </html>
