@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Mirador Financiero</title>
+<meta name="description" content="Artículos de finanzas personales para España. Presupuesto, ahorro, IRPF y más.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --noche: #1A3A4A;
+  --mirador: #2E6E8E;
+  --horizonte: #3AAFA9;
+  --destello: #F0C84A;
+  --destello-dark: #D9AE2C;
+  --fondo: #F0F3F6;
+  --fondo-warm: #FAF7F0;
+  --texto: #1E2D38;
+  --texto-suave: #5A6B78;
+  --blanco: #FFFFFF;
+  --borde: rgba(30,45,56,0.09);
+  --borde-fuerte: rgba(30,45,56,0.16);
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --shadow-sm: 0 1px 3px rgba(26,58,74,0.06);
+  --shadow-md: 0 4px 12px rgba(26,58,74,0.08), 0 1px 3px rgba(26,58,74,0.04);
+  --shadow-lg: 0 12px 28px rgba(26,58,74,0.11), 0 3px 6px rgba(26,58,74,0.05);
+  --nav-h: 64px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--fondo);
+  color: var(--texto);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ── NAV ──────────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: var(--nav-h);
+  background: rgba(240,243,246,0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--borde);
+  display: flex; align-items: center;
+  padding: 0 2rem; gap: 1.5rem;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 11px; flex-shrink: 0;
+}
+.nav-logomark {
+  width: 32px; height: 32px;
+}
+.nav-name { font-family: var(--serif); font-size: 19px; color: var(--noche); letter-spacing: 0.01em; }
+.nav-sub { font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mirador); font-weight: 500; }
+.nav-sep {
+  height: 20px; width: 1px; background: var(--borde-fuerte); margin-left: 0.5rem;
+}
+.nav-section {
+  font-size: 13px; font-weight: 500; color: var(--texto-suave);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.nav-right { margin-left: auto; display: flex; align-items: center; gap: 1.8rem; }
+.nav-link { font-size: 14px; color: var(--texto-suave); transition: color 0.18s; }
+.nav-link:hover { color: var(--noche); }
+.nav-cta {
+  background: var(--destello); color: var(--noche);
+  padding: 8px 18px; border-radius: 999px;
+  font-weight: 600; font-size: 13.5px;
+  transition: all 0.2s; box-shadow: 0 2px 8px rgba(240,200,74,0.38);
+}
+.nav-cta:hover { background: var(--destello-dark); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(240,200,74,0.48); }
+@media (max-width: 680px) {
+  .nav-sep, .nav-section, .nav-link:not(.nav-cta) { display: none; }
+  .nav-right { gap: 1rem; }
+}
+
+/* ── LAYOUT ───────────────────────────────────────────────────── */
+.blog-layout {
+  display: flex;
+  min-height: 100vh;
+  padding-top: var(--nav-h);
+}
+
+/* ── SIDEBAR ──────────────────────────────────────────────────── */
+.sidebar {
+  width: 320px;
+  flex-shrink: 0;
+  background: var(--fondo);
+  border-right: 1px solid var(--borde);
+}
+.sidebar-inner {
+  position: sticky;
+  top: var(--nav-h);
+  max-height: calc(100vh - var(--nav-h));
+  overflow-y: auto;
+  padding: 2rem 1.4rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--borde-fuerte) transparent;
+}
+.sidebar-heading {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mirador);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-left: 2px;
+}
+
+/* ── CARDS ────────────────────────────────────────────────────── */
+.article-card {
+  display: block;
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  margin-bottom: 0.7rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+  position: relative;
+  text-align: left;
+  width: 100%;
+  font-family: var(--sans);
+  color: var(--texto);
+}
+.article-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--borde-fuerte);
+  border-left-color: transparent;
+  transform: translateY(-1px);
+}
+.article-card.active {
+  border-left-color: var(--mirador);
+  background: #f4f9fc;
+  border-color: rgba(46,110,142,0.2);
+}
+.card-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mirador);
+  margin-bottom: 0.45rem;
+}
+.card-title {
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.3;
+  color: var(--noche);
+  margin-bottom: 0.45rem;
+}
+.card-excerpt {
+  font-size: 12.5px;
+  color: var(--texto-suave);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 0.55rem;
+}
+.card-meta {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 11.5px; color: var(--texto-suave);
+}
+.card-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--borde-fuerte); }
+
+/* ── SIDEBAR NEWSLETTER ───────────────────────────────────────── */
+.sidebar-newsletter {
+  margin-top: 1.6rem;
+  background: linear-gradient(135deg, var(--noche) 0%, #1d5268 100%);
+  border-radius: 12px;
+  padding: 1.4rem 1.2rem;
+  position: relative;
+  overflow: hidden;
+}
+.sidebar-newsletter::before {
+  content: '';
+  position: absolute;
+  top: -20px; right: -20px;
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: rgba(58,175,169,0.15);
+}
+.nl-eyebrow {
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--horizonte);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.nl-title {
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: var(--blanco);
+  line-height: 1.35;
+  margin-bottom: 0.8rem;
+}
+.nl-cta {
+  display: inline-block;
+  background: var(--destello);
+  color: var(--noche);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 12.5px;
+  transition: all 0.2s;
+}
+.nl-cta:hover { background: var(--destello-dark); }
+
+/* ── ARTICLE AREA ─────────────────────────────────────────────── */
+.article-area {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--blanco);
+}
+
+/* ── ARTICLE HEADER ───────────────────────────────────────────── */
+.article-header {
+  padding: 3.5rem 3.5rem 2.5rem;
+  border-bottom: 1px solid var(--borde);
+  max-width: 780px;
+}
+.article-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--mirador);
+  margin-bottom: 1.2rem;
+}
+.badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--horizonte);
+}
+.article-title {
+  font-family: var(--serif);
+  font-size: clamp(1.9rem, 3.5vw, 2.55rem);
+  line-height: 1.18;
+  color: var(--noche);
+  margin-bottom: 1.3rem;
+  letter-spacing: -0.01em;
+}
+.article-meta {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-size: 13px; color: var(--texto-suave);
+}
+.meta-sep { width: 3px; height: 3px; border-radius: 50%; background: currentColor; opacity: 0.4; }
+.article-latest-badge {
+  background: rgba(240,200,74,0.2);
+  color: #7a5f00;
+  padding: 3px 10px; border-radius: 999px;
+  font-size: 11px; font-weight: 600;
+}
+
+/* ── ARTICLE BODY ─────────────────────────────────────────────── */
+.article-body {
+  padding: 2.8rem 3.5rem 4rem;
+  max-width: 780px;
+}
+.article-body p {
+  font-size: 1.0625rem;
+  line-height: 1.78;
+  color: var(--texto);
+  margin-bottom: 1.4rem;
+}
+.article-body h2 {
+  font-family: var(--serif);
+  font-size: 1.55rem;
+  color: var(--noche);
+  line-height: 1.25;
+  margin-top: 2.8rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.005em;
+}
+.article-body h3 {
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--noche);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+.article-body strong {
+  font-weight: 600;
+  color: var(--noche);
+}
+.article-body em {
+  font-style: italic;
+}
+.article-body ul, .article-body ol {
+  margin: 1rem 0 1.4rem 1.3rem;
+}
+.article-body li {
+  font-size: 1.0625rem;
+  line-height: 1.72;
+  color: var(--texto);
+  margin-bottom: 0.35rem;
+}
+.article-body li strong { color: var(--noche); }
+.article-body a {
+  color: var(--mirador);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.article-body a:hover { color: var(--noche); }
+.article-body hr {
+  border: none;
+  border-top: 1px solid var(--borde-fuerte);
+  margin: 2.5rem 0;
+}
+.article-body .cta-block {
+  background: linear-gradient(135deg, #EBF4F8 0%, #E5F6F5 100%);
+  border: 1px solid rgba(46,110,142,0.15);
+  border-radius: 12px;
+  padding: 1.5rem 1.8rem;
+  margin-top: 2.5rem;
+  font-size: 0.975rem;
+  color: var(--texto-suave);
+  line-height: 1.65;
+}
+.article-body .cta-block a {
+  color: var(--mirador);
+  font-weight: 600;
+}
+.article-body .example-box {
+  background: var(--fondo);
+  border-left: 3px solid var(--horizonte);
+  border-radius: 0 8px 8px 0;
+  padding: 1.2rem 1.4rem;
+  margin: 1.4rem 0;
+}
+.article-body .example-box p { margin-bottom: 0.6rem; }
+.article-body .example-box p:last-child { margin-bottom: 0; }
+
+/* ── FADE TRANSITION ──────────────────────────────────────────── */
+.article-area {
+  transition: opacity 0.15s ease;
+}
+.article-area.fading {
+  opacity: 0;
+}
+
+/* ── MOBILE ───────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .blog-layout { flex-direction: column; }
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--borde);
+  }
+  .sidebar-inner {
+    position: static;
+    max-height: none;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 1.2rem;
+  }
+  .sidebar-heading { display: none; }
+  .article-card { min-width: 220px; margin-bottom: 0; }
+  .sidebar-newsletter { min-width: 220px; margin-top: 0; }
+  .article-header, .article-body { padding: 2rem 1.5rem; }
+  .article-header { padding-bottom: 1.6rem; }
+}
+
+/* ── PROGRESS INDICATOR ───────────────────────────────────────── */
+.reading-progress {
+  position: fixed;
+  top: var(--nav-h);
+  left: 0; right: 0;
+  height: 2px;
+  background: var(--borde);
+  z-index: 150;
+}
+.reading-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--mirador), var(--horizonte));
+  width: 0%;
+  transition: width 0.1s linear;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <svg class="nav-logomark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="32" height="32" rx="8" fill="#1A3A4A"/>
+      <path d="M4 24 L10 14 L16 18 L22 10 L28 24 Z" fill="none" stroke="#3AAFA9" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M4 24 L28 24" stroke="#2E6E8E" stroke-width="1.2" opacity="0.6"/>
+      <circle cx="22" cy="10" r="2.5" fill="#F0C84A"/>
+    </svg>
+    <div>
+      <div class="nav-name">Mirador Financiero</div>
+      <div class="nav-sub">Finanzas personales</div>
+    </div>
+  </div>
+  <div class="nav-sep"></div>
+  <span class="nav-section">Blog</span>
+  <div class="nav-right">
+    <a href="https://miradorfinanciero.com" class="nav-link">Inicio</a>
+    <a href="https://miradorfinanciero.com#lista" class="nav-cta">Lista de espera</a>
+  </div>
+</nav>
+
+<!-- PROGRESS BAR -->
+<div class="reading-progress">
+  <div class="reading-progress-bar" id="progress-bar"></div>
+</div>
+
+<!-- LAYOUT -->
+<div class="blog-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <p class="sidebar-heading">Artículos</p>
+      <div id="article-cards"></div>
+      <div class="sidebar-newsletter">
+        <p class="nl-eyebrow">Próximamente</p>
+        <p class="nl-title">La herramienta que te estábamos contando</p>
+        <a href="https://miradorfinanciero.com#lista" class="nl-cta">Apuntarme →</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ARTICLE AREA -->
+  <main class="article-area" id="article-area">
+    <!-- Content rendered by JS -->
+  </main>
+
+</div>
+
+<script>
+/* ── DATA ───────────────────────────────────────────────────── */
+const articles = [
+  {
+    id: 'irpf',
+    isLatest: true,
+    category: 'Planificación',
+    date: '10 mar 2026',
+    readTime: '5 min',
+    title: 'IRPF 2025-2026: desgravaciones que no conoces',
+    excerpt: 'Cada primavera, millones de españoles confirman el borrador sin revisarlo. El problema es que ese número casi nunca es el correcto. Hacienda no se molesta en recordarte lo que puedes deducirte.',
+    body: `
+      <p>Cada primavera, millones de españoles abren el borrador de la renta, miran el número de abajo, dicen «bueno, podría ser peor» y le dan a confirmar. Fin del proceso.</p>
+      <p>El problema es que ese número casi nunca es el correcto. O mejor dicho: casi nunca es el más bajo que podrías conseguir. Porque Hacienda te calcula lo que le debes, pero no se molesta en recordarte todo lo que puedes deducirte. Eso corre de tu cuenta. Y si no lo sabes, lo pagas.</p>
+      <p>La campaña de la Renta 2025 —que se presenta en 2026— trae cambios que merece la pena conocer. Pero más allá de las novedades, hay un puñado de deducciones que llevan años ahí, esperando pacientemente a que alguien las descubra. Vamos a repasarlas.</p>
+
+      <h2>Primero: la diferencia entre deducir y desgravar (sí, importa)</h2>
+      <p>Antes de entrar en materia, aclaremos algo que genera confusión permanente. No es lo mismo una deducción que una desgravación, aunque se usen como sinónimos en la conversación de barra de bar.</p>
+      <p>Una <strong>desgravación</strong> reduce la base imponible. Es decir, baja la cifra sobre la que se calcula tu impuesto. Si ganas 30.000 € y desgravas 1.500 € por un plan de pensiones, tributas como si hubieras ganado 28.500 €. El ahorro real depende de tu tramo impositivo.</p>
+      <p>Una <strong>deducción</strong> se aplica directamente sobre la cuota, sobre lo que te toca pagar. Si tu cuota es de 4.000 € y tienes una deducción de 1.200 €, pagas 2.800 €. Euro por euro.</p>
+      <p>¿Por qué importa esto? Porque una deducción de 500 € siempre te ahorra 500 €. Una desgravación de 500 € te ahorra entre 95 € y 235 €, dependiendo de cuánto ganes. Cuando alguien te diga que «el plan de pensiones desgrava 1.500 €», no significa que te devuelvan 1.500 €. Significa que tributas por 1.500 € menos, que es bastante diferente.</p>
+      <p>Con eso claro, entremos en las que probablemente no estás aplicando.</p>
+
+      <h2>1. Donativos a ONG: la deducción más generosa que casi nadie maximiza</h2>
+      <p>Si donas a una ONG, una fundación o una asociación de utilidad pública acogida a la Ley 49/2002, los porcentajes de deducción son sorprendentemente altos.</p>
+      <p>En la Renta 2025, los números son estos: los primeros 250 € donados se deducen al <strong>80 %</strong>. Es decir, donas 250 € y recuperas 200 € en la declaración. El coste real de tu donación son 50 €. A partir de esos 250 €, la deducción es del <strong>40 %</strong> sobre el resto.</p>
+      <p>Pero aquí viene lo que poca gente sabe: si llevas tres años consecutivos donando a la misma entidad una cantidad igual o superior a la del año anterior, ese 40 % sube al 45 %. Y si tus donativos van destinados a actividades prioritarias de mecenazgo —universidades públicas, el CSIC, programas contra la violencia de género, el Museo del Prado, entre otros—, los porcentajes suben otros 5 puntos.</p>
+      <div class="example-box">
+        <p><strong>Un ejemplo concreto.</strong> Si donas 25 € al mes a una ONG, son 300 € al año. Tu deducción: 200 € por los primeros 250 € (al 80 %) + 20 € por los 50 € restantes (al 40 %). Total recuperado: 220 €. Tu donación de 300 € te ha costado realmente 80 €.</p>
+        <p>Para que funcione, necesitas el certificado de la entidad receptora. La mayoría de las ONG lo envían automáticamente en enero. Si no te ha llegado, pídelo.</p>
+      </div>
+
+      <h2>2. La nueva deducción de 340 € para rentas bajas</h2>
+      <p>Esta es una novedad del ejercicio 2025 que mucha gente no conoce porque no se ha publicitado demasiado. Si tus rendimientos netos del trabajo no superan los <strong>16.576 € brutos anuales</strong>, puedes aplicar una deducción en la cuota de hasta 340 €.</p>
+      <p>El objetivo es compensar el efecto fiscal de las subidas del Salario Mínimo Interprofesional. La deducción es máxima en los 16.576 € y va reduciéndose progresivamente hasta desaparecer en torno a los 18.276 €. No hay que pedirla: en teoría aparece en el borrador. Pero «en teoría» y «en la práctica» no siempre coinciden con Hacienda. Revísalo.</p>
+
+      <h2>3. Eficiencia energética de tu vivienda: hasta un 60 % de deducción</h2>
+      <p>Si en 2025 hiciste obras para mejorar la eficiencia energética de tu vivienda, hay tres modalidades de deducción que conviene repasar.</p>
+      <ul>
+        <li><strong>20 % de deducción</strong> cuando las obras reducen la demanda de calefacción o refrigeración al menos un 7 %. Base máxima: 5.000 €.</li>
+        <li><strong>40 % de deducción</strong> si consigues reducir el consumo de energía primaria no renovable al menos un 30 %. Tope: 7.500 €.</li>
+        <li><strong>60 % de deducción</strong> para edificios residenciales completos. Base de hasta 5.000 € anuales por vivienda, acumulable en un máximo de 15.000 €.</li>
+      </ul>
+      <p>Hablamos de cifras importantes. Si cambiaste ventanas, instalaste aerotermia o mejoraste el aislamiento de tu casa, no dejes de comprobar si tienes derecho. Necesitas dos certificados de eficiencia energética —uno anterior y otro posterior a la obra— que demuestren la mejora. Y la obra tiene que haberse completado antes del 31 de diciembre de 2025.</p>
+
+      <h2>4. Inversión en empresas de nueva creación</h2>
+      <p>Si durante 2025 invertiste en una startup o empresa de reciente creación, puedes deducirte parte de la inversión. La deducción permite restar de la cuota un porcentaje de las cantidades invertidas en la suscripción de acciones o participaciones de empresas nuevas o con pocos años de actividad.</p>
+      <p>No es una deducción para grandes inversores. Está pensada para incentivar que personas normales pongan dinero en proyectos empresariales emergentes. Lo que sí requiere es que la empresa cumpla ciertos criterios: ser de nueva creación o reciente, no cotizar en un mercado organizado, y que la inversión se mantenga durante un período mínimo. Si participaste en una ronda de financiación o entraste como socio en un proyecto, revisa si cumples los requisitos.</p>
+
+      <h2>5. Planes de pensiones: la desgravación que conoces pero probablemente no aprovechas bien</h2>
+      <p>Esta la «conoce» todo el mundo. Pero conocerla y aprovecharla bien son cosas distintas.</p>
+      <p>Las aportaciones a planes de pensiones individuales permiten reducir tu base imponible hasta <strong>1.500 € al año</strong>. Si tu empresa ofrece un plan de empleo, el límite adicional sube a 8.500 €. Para autónomos con planes simplificados, el límite extra es de 4.250 €.</p>
+      <p>Lo que mucha gente no sabe es que la desgravación tiene tope doble: no puedes desgravar más de 1.500 € ni más del 30 % de tus rendimientos netos del trabajo. Y lo que casi nadie calcula es el ahorro real. Si estás en un tramo marginal del 30 %, desgravar 1.500 € te ahorra 450 € en impuestos. Si estás en el tramo del 45 %, te ahorra 675 €. Cuanto más alto tu tramo, más te interesa el plan de pensiones desde el punto de vista fiscal.</p>
+      <p><strong>Novedad en 2025:</strong> ya puedes rescatar anticipadamente los derechos consolidados de tu plan de pensiones si llevan al menos diez años. Un cambio importante para quienes aportaron hace años y necesitan liquidez antes de la jubilación.</p>
+
+      <h2>6. Vehículo eléctrico: el 15 % que caduca</h2>
+      <p>Si compraste un coche eléctrico enchufable o de pila de combustible en 2025, puedes deducirte el <strong>15 %</strong> del valor de adquisición, con una base máxima de 20.000 €. Lo mismo aplica si instalaste un punto de recarga en tu vivienda.</p>
+      <p>El matiz relevante: el vehículo tiene que haberse matriculado por primera vez en España antes del 31 de diciembre de 2025. Y hay que descontar de la base las subvenciones o ayudas públicas que hayas recibido —Plan MOVES, por ejemplo—.</p>
+
+      <h2>7. Maternidad: 1.200 € por hijo menor de tres años</h2>
+      <p>La deducción por maternidad permite a las madres trabajadoras deducir hasta <strong>1.200 € al año</strong> por cada hijo menor de tres años. Es independiente de la prestación por baja de maternidad.</p>
+      <p>Lo que muchas madres no saben es que esta deducción se puede cobrar de forma anticipada —100 € al mes— en lugar de esperar a la declaración. Si no la estás cobrando, estás financiando a Hacienda gratis durante meses. Y si tienes gastos de guardería o centro de educación infantil autorizado, hay un incremento adicional que puede llegar a 1.000 € más por hijo.</p>
+
+      <h2>8. Las autonómicas: el territorio que nadie explora</h2>
+      <p>Aquí es donde la mayoría del dinero se queda sobre la mesa. Cada comunidad autónoma tiene su propio catálogo de deducciones, y la variedad es enorme.</p>
+      <p>En Madrid, puedes deducir el 15 % de gastos de escolaridad y enseñanza de idiomas de tus hijos. En Andalucía, hay deducciones por gastos en idiomas e informática para descendientes. En la Comunitat Valenciana, existen deducciones por alquiler, por donaciones medioambientales y por inversiones en empresas de nueva creación con porcentajes propios. En Aragón, hay deducciones por donativos ecológicos.</p>
+      <p>El problema es que el borrador no siempre incluye estas deducciones automáticamente. Muchas hay que marcarlas a mano. Si confirmas sin revisar, las pierdes. Así de simple.</p>
+
+      <h2>Lo que deberías hacer antes de darle a «confirmar»</h2>
+      <p>La lista no es exhaustiva, pero cubre los puntos que más gente se deja sin aplicar. Para que no te pase:</p>
+      <ol>
+        <li><strong>Revisa el borrador línea por línea.</strong> El borrador es una propuesta, no una verdad revelada. Hacienda no tiene toda tu información y, cuando la tiene, no siempre la interpreta a tu favor.</li>
+        <li><strong>Busca las deducciones autonómicas de tu comunidad.</strong> La Agencia Tributaria tiene un manual práctico con el desglose comunidad por comunidad. Son dos clics y pueden suponer cientos de euros.</li>
+        <li><strong>Guarda los justificantes.</strong> Certificados de donación, facturas de obras, contratos de alquiler, recibos de guardería. Sin justificante, no hay deducción. Y Hacienda puede pedírtelos hasta cuatro años después.</li>
+        <li><strong>Si algo no te cuadra, consulta.</strong> Con un asesor fiscal o, como mínimo, con el servicio de cita previa de la propia Agencia Tributaria.</li>
+      </ol>
+
+      <h2>La moraleja fiscal</h2>
+      <p>El IRPF es un impuesto complejo. Pero lo que más dinero cuesta no es la complejidad. Es la pereza. La pereza de no revisar el borrador, de no buscar las deducciones de tu comunidad, de no pedir el certificado de la ONG a la que donas cada Navidad.</p>
+      <p>No hace falta ser un experto fiscal para pagar lo justo. Hace falta dedicar una hora —una sola— a repasar qué se te aplica y qué no. Una hora que, en muchos casos, vale más de lo que cobras en una jornada de trabajo.</p>
+      <hr>
+      <div class="cta-block">¿Quieres una herramienta que te ayude a tener tus finanzas bajo control y preparadas para la declaración? Estamos construyendo algo. <a href="https://miradorfinanciero.com#lista">Apúntate a la lista de espera y sé el primero en probarlo.</a></div>
+    `
+  },
+  {
+    id: 'presupuesto',
+    isLatest: false,
+    category: 'Finanzas Personales',
+    date: '15 ene 2026',
+    readTime: '6 min',
+    title: 'Presupuesto mensual: la base que te faltaba',
+    excerpt: '¿Sabes cuánto dinero has gastado este mes? No un número redondo. "Más o menos" es exactamente la distancia que separa a quien controla su dinero de quien corre detrás de él.',
+    body: `
+      <p>Vamos a empezar con una pregunta incómoda: ¿sabes cuánto dinero has gastado este mes? No un número redondo, no "pues unos mil y algo". El número real. Con decimales.</p>
+      <p>Si la respuesta es "no, pero más o menos me cuadra", tenemos un problema. Porque "más o menos" es exactamente la distancia que separa a quien controla su dinero de quien corre detrás de él. Y la herramienta que cierra esa distancia tiene un nombre que no le hace justicia: presupuesto.</p>
+      <p>Un presupuesto bien hecho es todo lo contrario a restricción. Es libertad con información. Es poder gastarte 200 € en unas zapatillas sin sentir culpa, porque sabes que los números cuadran. Es llegar al día 28 del mes y que no te dé un microinfarto al mirar la app del banco.</p>
+
+      <h2>Lo que un presupuesto no es</h2>
+      <p><strong>Un presupuesto no es una dieta para tu dinero.</strong> No se trata de prohibirte cosas. Se trata de decidir a dónde va cada euro antes de que se esfume en compras que ni recuerdas. Si después de asignar todo decides que quieres gastarte 150 € al mes en café de especialidad, adelante. La diferencia es que ahora es una decisión, no un accidente.</p>
+      <p><strong>Un presupuesto no tiene que ser perfecto.</strong> Los primeros meses vas a fallar. Vas a subestimar lo que gastas en supermercado. Vas a olvidar el seguro del coche que se cobra en marzo. Todo eso está bien. Un presupuesto que falla te está enseñando algo. Uno que no existe, no.</p>
+      <p><strong>Un presupuesto no es para siempre.</strong> Es un documento vivo. Lo revisas cada mes, lo ajustas, aprendes y sigues.</p>
+
+      <h2>El punto de partida: saber a dónde va tu dinero</h2>
+      <p>La versión corta es esta: revisa tus movimientos bancarios de los últimos tres meses y clasifica cada gasto. No un mes, tres. Uno puede ser atípico; tres revelan el patrón.</p>
+      <p>Lo que suele pasar cuando alguien hace este ejercicio por primera vez es una mezcla de revelación y vergüenza. "¿Cuarenta y siete euros en apps que ni uso?" Sí. "¿Trescientos euros en comer fuera cuando pensaba que eran cien?" También. No pasa nada. Es información, no un juicio.</p>
+      <p>La clasificación más útil para empezar:</p>
+      <ul>
+        <li><strong>Gastos fijos esenciales.</strong> Los que pasan todos los meses y no puedes evitar: alquiler o hipoteca, suministros, seguros obligatorios, transporte al trabajo. Son los que no cambian aunque te propongas gastar menos.</li>
+        <li><strong>Gastos variables necesarios.</strong> Alimentación, productos de primera necesidad, gastos médicos. Los necesitas, pero su importe depende de tus decisiones diarias.</li>
+        <li><strong>Gastos discrecionales.</strong> Todo lo demás: ocio, restaurantes, ropa, suscripciones, viajes. No son malos. Son opcionales. Y ahí es donde un presupuesto marca la diferencia entre gastar con intención y gastar por inercia.</li>
+      </ul>
+
+      <h2>Cómo montar tu primer presupuesto (sin hoja de cálculo de diecisiete pestañas)</h2>
+      <p>Hay tantos métodos para hacer un presupuesto como libros de finanzas personales en el mundo. Vamos a lo que funciona.</p>
+
+      <h3>Método 1: La regla 50/30/20</h3>
+      <p>La idea: de tus ingresos netos mensuales, asigna un 50% a necesidades, un 30% a deseos y un 20% a ahorro y pago de deudas.</p>
+      <div class="example-box">
+        <p><strong>Con 2.000 € netos al mes:</strong></p>
+        <p>Necesidades (50%): 1.000 € → Alquiler, luz, agua, transporte, seguro, comida básica.</p>
+        <p>Deseos (30%): 600 € → Restaurantes, ocio, ropa, suscripciones, viajes.</p>
+        <p>Ahorro/deuda (20%): 400 € → Fondo de emergencia, plan de pensiones, amortización de deudas.</p>
+      </div>
+      <p><strong>La señal de alarma:</strong> si tus gastos fijos esenciales superan el 60 % de tus ingresos netos, no tienes un problema de presupuesto. Tienes un problema de ingresos o de gastos estructurales que ninguna hoja de cálculo va a resolver sola.</p>
+
+      <h3>Método 2: La base cero</h3>
+      <p>Este es para quien quiere control total. Cada euro tiene un destino asignado antes de que empiece el mes. Ingresos menos todos los gastos planificados = cero. No es que no te quede nada; es que todo está colocado. La ventaja: te obliga a tomar decisiones activas. La desventaja: requiere más tiempo de configuración y ajuste.</p>
+
+      <h3>Método 3: El sobre moderno</h3>
+      <p>El método de los sobres viene de los años en que la gente cobraba en efectivo y repartía el dinero en sobres físicos. Hoy nadie cobra en efectivo —o casi nadie—, pero la lógica sigue funcionando. En lugar de sobres físicos, puedes usar cuentas separadas o subcuentas en tu banco. Una para gastos fijos, otra para ocio, otra para ahorro. Cuando se acaba, se acabó. Es el método más tangible para personas que saben que se engañan a sí mismas con los números.</p>
+
+      <h2>Los errores que todos cometemos (y cómo evitarlos)</h2>
+      <p><strong>Olvidar los gastos anuales.</strong> El seguro del coche, la declaración de la renta, la ITV, las vacaciones de verano, los regalos de Navidad. Si divides el coste anual entre doce y apartas esa cantidad cada mes, cuando llegue el momento no tendrás que improvisar. El seguro de 480 € en octubre son 40 € al mes que deberían estar presupuestados desde enero.</p>
+      <p><strong>Subestimar los gastos variables.</strong> El supermercado es el gran clásico. La gente calcula 300 € y gasta 420 €. No porque sea derrochadora, sino porque olvida las compras extra en la gasolinera, los "solo necesito una cosa" que acaban siendo seis. Usa el dato real de tus tres meses de historial, no el que te gustaría que fuera.</p>
+      <p><strong>No incluir un colchón para imprevistos.</strong> Un 5 % de tu presupuesto mensual que no asignas a nada concreto. Porque cada mes pasa algo: una cena inesperada, un taxi que no habías planeado. Si no tienes ese margen, cada mes parece un desastre cuando en realidad es la vida siendo normal.</p>
+      <p><strong>Ser demasiado ambicioso al principio.</strong> Asignar un 40 % al ahorro en tu primer presupuesto es como apuntarte a un maratón cuando no puedes correr 5 kilómetros. Empieza con un porcentaje que puedas mantener tres meses seguidos. Luego sube.</p>
+
+      <h2>El momento de la verdad: la revisión mensual</h2>
+      <p>Crear el presupuesto es la mitad del trabajo. La otra mitad es revisarlo. Dedícale 20 minutos. No más. Ponlo en el calendario como si fuera una reunión importante, porque lo es.</p>
+      <p>Los primeros tres meses, las diferencias entre lo presupuestado y lo real serán grandes. Eso no significa que estés fallando. Significa que estás calibrando. Para el mes cuatro o cinco, tu presupuesto se parecerá mucho más a tu realidad. Y eso es exactamente cuando empieza a ser útil de verdad.</p>
+      <p>Un truco que funciona: en la revisión mensual, anota una sola cosa que harías diferente el mes que viene. Solo una. "Llevar la comida al trabajo dos días más." "Cancelar esa suscripción que no uso." Cambios pequeños que se acumulan. Nadie transforma sus finanzas en un mes. Todo el mundo puede transformarlas en doce.</p>
+
+      <h2>El presupuesto no es el destino. Es el mapa.</h2>
+      <p>Tener un presupuesto no te hace rico, ni organizado, ni responsable. Lo que te hace es <em>informado</em>. Y las decisiones informadas son mejores que las que tomas a ciegas. Siempre.</p>
+      <p>El dinero que gastas sin plan se gasta solo. El dinero que gastas con plan se gasta exactamente donde tú decides. Y esa diferencia, mes a mes, es la que separa a quien llega a fin de mes preguntándose qué pasó de quien llega sabiendo exactamente lo que pasó.</p>
+      <hr>
+      <div class="cta-block">¿Quieres una herramienta que te ayude a controlar tu presupuesto, tus gastos y tus objetivos de ahorro en un solo lugar? Estamos construyendo algo. <a href="https://miradorfinanciero.com#lista">Apúntate a la lista de espera y sé el primero en probarlo.</a></div>
+    `
+  },
+  {
+    id: 'finanzas-cero',
+    isLatest: false,
+    category: 'Finanzas Personales',
+    date: '01 ene 2026',
+    readTime: '8 min',
+    title: 'Cómo organizar tus finanzas personales desde cero: la guía definitiva',
+    excerpt: 'Hay un momento en la vida de toda persona en el que mira su cuenta bancaria y piensa: "¿Dónde se ha ido todo?". Organizar tus finanzas no requiere un máster. Requiere algo más difícil.',
+    body: `
+      <p>Hay un momento en la vida de toda persona en el que mira su cuenta bancaria y piensa: "¿Dónde se ha ido todo?". A veces ocurre el día 20 del mes. A veces el día 8. Si te ha pasado el día 3, probablemente este artículo te interesa más de lo que crees.</p>
+      <p>Organizar tus finanzas personales no requiere un máster en economía ni una hoja de cálculo con diecisiete pestañas de colores. Requiere algo mucho más difícil: sentarte, mirar los números con honestidad y tomar unas cuantas decisiones que tu yo del futuro te agradecerá.</p>
+
+      <h2>Por qué la mayoría de la gente no tiene un plan financiero (y por qué es normal)</h2>
+      <p>Nadie nos enseña a gestionar el dinero. En serio. Pasamos años aprendiendo ecuaciones de segundo grado que nunca volveremos a usar, pero salimos al mundo laboral sin saber qué es una nómina neta, cómo funciona el IRPF o por qué esa suscripción que contrataste "solo por un mes" lleva catorce meses cobrándose.</p>
+      <p>No tener un plan financiero no significa que seas irresponsable. Significa que nunca nadie te dio las herramientas. Hasta ahora.</p>
+      <p>Lo que sí es cierto es que cuanto antes empieces, mejor. No porque vayas a hacerlo perfecto desde el primer día —no lo vas a hacer, y está bien—, sino porque la diferencia entre alguien que organiza sus finanzas a los 25 y alguien que lo hace a los 40 no es de 15 años. Es exponencial. El tiempo, cuando hablamos de dinero, es el recurso más valioso que tienes.</p>
+
+      <h2>Paso 1: Saber exactamente cuánto entra y cuánto sale</h2>
+      <p>Parece obvio. No lo es.</p>
+      <p>La mayoría de la gente sabe más o menos cuánto cobra. Ese "más o menos" ya es un problema, porque tu nómina neta puede variar cada mes según las retenciones, y si eres autónomo la cosa se pone interesante de verdad.</p>
+      <p><strong>El ejercicio más revelador que puedes hacer ahora mismo</strong> es revisar tus movimientos bancarios de los últimos tres meses. No uno, tres. Un mes puede ser atípico. Tres meses te dan un patrón.</p>
+      <p>Cuando lo hagas, clasifica cada gasto en una de estas categorías:</p>
+      <ul>
+        <li><strong>Esenciales fijos:</strong> alquiler o hipoteca, suministros, seguros, transporte al trabajo. Lo que pagas sí o sí todos los meses y no cambia mucho.</li>
+        <li><strong>Esenciales variables:</strong> alimentación, productos de higiene, gastos médicos. Necesarios, pero su importe varía.</li>
+        <li><strong>Prescindibles recurrentes:</strong> suscripciones, gimnasio, plataformas de streaming, esa app premium que ya ni recuerdas haber contratado.</li>
+        <li><strong>Prescindibles puntuales:</strong> ocio, restaurantes, ropa, caprichos varios.</li>
+      </ul>
+      <p>No se trata de juzgar. Se trata de ver. Porque hasta que no ves a dónde va tu dinero, cualquier plan que hagas es ficción.</p>
+
+      <h2>Paso 2: Construir un presupuesto que vayas a cumplir</h2>
+      <p>La palabra "presupuesto" tiene un problema de imagen. Suena a restricción, a privarse de cosas, a vivir contando céntimos. En realidad, un presupuesto es exactamente lo contrario: es decidir <em>tú</em> a dónde va tu dinero antes de que se decida solo.</p>
+
+      <h3>La regla 50/30/20</h3>
+      <p>Es un punto de partida, no un dogma. La idea es simple: de tus ingresos netos, destina aproximadamente un 50 % a necesidades, un 30 % a lo que te apetezca y un 20 % a ahorro o pago de deudas.</p>
+      <div class="example-box">
+        <p><strong>Con 1.800 € netos al mes:</strong></p>
+        <p>Necesidades (50%): 900 € → Alquiler, suministros, comida, transporte, seguros.</p>
+        <p>Deseos (30%): 540 € → Ocio, restaurantes, compras, suscripciones, viajes.</p>
+        <p>Ahorro (20%): 360 € → Fondo de emergencia, ahorro a medio plazo, inversión futura.</p>
+      </div>
+
+      <h3>La trampa del presupuesto perfecto</h3>
+      <p>Aquí va algo que nadie te dice: tu primer presupuesto va a fallar. Y el segundo también. Probablemente el tercero. No pasa nada.</p>
+      <p>Un presupuesto no es un contrato que firmas con sangre el día 1 del mes. Es una herramienta viva que ajustas cada mes según lo que aprendes. Si en enero no tenías ni idea de cuánto gastabas en comer fuera y en marzo ya lo sabes, has avanzado más de lo que crees.</p>
+
+      <h2>Paso 3: Crear tu fondo de emergencia (sí, antes de todo lo demás)</h2>
+      <p>Si solo te quedas con una cosa de este artículo, que sea esta: <strong>necesitas un fondo de emergencia antes de hacer cualquier otra cosa con tu dinero.</strong></p>
+      <p>¿Qué es un fondo de emergencia? Dinero apartado que solo tocas cuando la vida te recuerda que las cosas se rompen, los trabajos se pierden y los imprevistos no avisan. No es dinero para vacaciones. No es dinero para "esa oferta que no puedo dejar pasar".</p>
+      <p>El consenso general habla de entre <strong>3 y 6 meses de gastos esenciales</strong>. Si tus gastos fijos mensuales son 1.200 €, eso son entre 3.600 € y 7.200 €. Sí, es mucho dinero. No, no tienes que tenerlo mañana.</p>
+      <p>Si ahora mismo tu fondo de emergencia es cero, empieza con un objetivo más modesto: 1.000 €. Es suficiente para absorber la mayoría de imprevistos menores. Una vez que tengas esos primeros 1.000 €, sigue construyendo hasta llegar a los 3 meses de gastos.</p>
+      <p><strong>¿Dónde guardarlo?</strong> En una cuenta separada de tu cuenta corriente habitual. Separada de verdad, no "mentalmente separada". Si el dinero está en la misma cuenta que usas para vivir, lo gastarás. No porque seas débil, sino porque así funciona la psicología humana.</p>
+
+      <h2>Paso 4: Liquidar las deudas que te cuestan dinero</h2>
+      <p>No todas las deudas son iguales. Tu hipoteca, si la tienes, es una deuda a tipo de interés generalmente bajo y con un activo detrás. La deuda de tu tarjeta de crédito al 20 % TAE es otra historia. Una historia de terror financiero, para ser exactos.</p>
+      <p>Si tienes deudas de alto interés (tarjetas de crédito, préstamos personales, financiaciones "cómodas" de tiendas), priorizarlas es matemática pura.</p>
+      <ul>
+        <li><strong>El método avalancha</strong> ordena tus deudas de mayor a menor tipo de interés. Pagas el mínimo en todas excepto en la que tiene el interés más alto, donde concentras todo el dinero extra que puedas. Es el método matemáticamente óptimo.</li>
+        <li><strong>El método bola de nieve</strong> ordena las deudas de menor a mayor importe. Empiezas por la más pequeña, la eliminas rápido y esa victoria te da impulso para la siguiente. No es el más eficiente económicamente, pero funciona mejor psicológicamente para mucha gente.</li>
+      </ul>
+      <p>¿Cuál es mejor? El que te haga seguir adelante. La diferencia en intereses entre ambos métodos suele ser menor de lo que piensas, y un plan que sigues siempre es mejor que un plan perfecto que abandonas.</p>
+
+      <h2>Paso 5: Automatiza todo lo que puedas</h2>
+      <p>El secreto peor guardado de las finanzas personales: la gente que ahorra consistentemente no tiene más fuerza de voluntad que tú. Tiene mejores automatismos.</p>
+      <p>Configura una transferencia automática el día que cobras. Antes de que ese dinero pase una sola noche en tu cuenta corriente, que se vaya solo a su destino: tu fondo de emergencia, tu cuenta de ahorro. Si tienes que pensar en hacerlo cada mes, hay meses en que no lo harás. Si ocurre solo, siempre ocurre.</p>
+      <p><strong>Un sistema simple que funciona:</strong></p>
+      <ol>
+        <li><strong>Día de cobro:</strong> transferencia automática del 20 % (o lo que hayas decidido) a la cuenta de ahorro.</li>
+        <li><strong>Primeros 5 días:</strong> se pagan solos los gastos fijos domiciliados.</li>
+        <li><strong>Lo que queda:</strong> es tu dinero para vivir el mes. Sin culpa, sin cálculos diarios.</li>
+      </ol>
+      <p>Es lo que en finanzas personales se llama "pagarte a ti mismo primero". Suena a frase de libro de autoayuda, pero es el único truco que realmente funciona a largo plazo.</p>
+
+      <h2>Paso 6: Revisar, ajustar, repetir</h2>
+      <p>Las finanzas personales no son un proyecto que terminas. Son un hábito que mantienes.</p>
+      <p>Dedica 30 minutos al mes —solo 30, no más— a revisar cómo ha ido. Mira tus gastos frente al presupuesto. Identifica dónde te has pasado y dónde te ha sobrado. Ajusta los números del mes siguiente.</p>
+      <p>Con el tiempo, estas revisiones se vuelven más rápidas y más interesantes. Empiezas a ver patrones, a anticiparte a gastos estacionales (la declaración de la renta en abril, los seguros que renuevan en octubre, las navidades que llegan siempre como si nadie las esperase) y a tomar decisiones desde la información en vez de desde la intuición.</p>
+
+      <h2>Lo que viene después</h2>
+      <p>Si has llegado hasta aquí y estás pensando "vale, pero ¿y lo de invertir?", buena señal. Significa que tu cabeza ya está un paso por delante.</p>
+      <p>Pero antes de invertir un solo euro, necesitas tener resuelto lo básico: saber cuánto gastas, tener un presupuesto funcional, haber construido al menos el inicio de tu fondo de emergencia y no tener deudas de alto interés quemándote el bolsillo. Invertir sin esa base es como construir un tercer piso sin cimientos. Se puede, pero no acaba bien.</p>
+      <p>Por ahora, haz el ejercicio de los tres meses de movimientos bancarios. Es el primer paso y el más importante. Probablemente también el más incómodo. Pero si buscas comodidad, las finanzas personales no son el mejor sitio para empezar. Aunque, pensándolo bien, es precisamente la comodidad lo que consigues cuando las tienes en orden.</p>
+      <hr>
+      <div class="cta-block">¿Quieres una herramienta que te ayude a organizar tus ingresos, gastos y objetivos de ahorro en un solo lugar? Estamos construyendo algo. <a href="https://miradorfinanciero.com#lista">Apúntate a la lista de espera y sé el primero en probarlo.</a></div>
+    `
+  }
+];
+
+/* ── RENDER CARDS ───────────────────────────────────────────── */
+function renderCards(activeId) {
+  const container = document.getElementById('article-cards');
+  container.innerHTML = articles.map(a => `
+    <button class="article-card ${a.id === activeId ? 'active' : ''}" onclick="loadArticle('${a.id}')">
+      <span class="card-badge">${a.category}</span>
+      <div class="card-title">${a.title}</div>
+      <div class="card-excerpt">${a.excerpt}</div>
+      <div class="card-meta">
+        <span>${a.date}</span>
+        <span class="card-meta-dot"></span>
+        <span>${a.readTime} lectura</span>
+      </div>
+    </button>
+  `).join('');
+}
+
+/* ── RENDER ARTICLE ─────────────────────────────────────────── */
+function renderArticle(article) {
+  const area = document.getElementById('article-area');
+  area.innerHTML = `
+    <div class="article-header">
+      <div class="article-badge">
+        <span class="badge-dot"></span>
+        ${article.category}
+        ${article.isLatest ? '<span class="article-latest-badge">Último artículo</span>' : ''}
+      </div>
+      <h1 class="article-title">${article.title}</h1>
+      <div class="article-meta">
+        <span>${article.date}</span>
+        <span class="meta-sep"></span>
+        <span>${article.readTime} de lectura</span>
+      </div>
+    </div>
+    <div class="article-body">${article.body}</div>
+  `;
+  area.scrollTop = 0;
+}
+
+/* ── LOAD ARTICLE ───────────────────────────────────────────── */
+function loadArticle(id) {
+  const article = articles.find(a => a.id === id);
+  if (!article) return;
+  const area = document.getElementById('article-area');
+  area.classList.add('fading');
+  setTimeout(() => {
+    renderArticle(article);
+    renderCards(id);
+    area.classList.remove('fading');
+    updateProgress();
+  }, 120);
+}
+
+/* ── READING PROGRESS ───────────────────────────────────────── */
+function updateProgress() {
+  const bar = document.getElementById('progress-bar');
+  const area = document.getElementById('article-area');
+  const scrollable = area.scrollHeight - area.clientHeight;
+  const pct = scrollable > 0 ? (area.scrollTop / scrollable) * 100 : 0;
+  bar.style.width = Math.min(pct, 100) + '%';
+}
+
+document.getElementById('article-area').addEventListener('scroll', updateProgress);
+
+/* ── INIT ───────────────────────────────────────────────────── */
+renderCards('irpf');
+renderArticle(articles[0]);
+</script>
+</body>
+</html>
