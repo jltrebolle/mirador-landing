@@ -783,7 +783,7 @@ section { padding: 6rem 2rem; position: relative; }
 .plantilla-tag.free-tag {
   background: var(--destello); color: var(--noche);
 }
-.plantilla-tag.paid-tag {
+.plantilla-tag.app-tag {
   background: rgba(46,110,142,0.1); color: var(--mirador);
 }
 .plantilla h4 {
@@ -806,28 +806,18 @@ section { padding: 6rem 2rem; position: relative; }
 }
 .plantilla.free .plantilla-price { color: var(--destello); font-weight: 400; }
 .plantilla:not(.free) .plantilla-price { color: var(--noche); }
-.plantilla-pack {
+.plantillas-note {
   grid-column: 1 / -1;
-  background: var(--destello);
-  color: var(--noche);
-  border-radius: 18px;
-  padding: 2rem 2.5rem;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 2rem; flex-wrap: wrap;
-  margin-top: 1rem;
-  box-shadow: var(--shadow-md);
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+  margin-top: 0.5rem;
 }
-.plantilla-pack h4 {
-  font-family: var(--serif); font-size: 1.4rem;
-  font-weight: 400; margin-bottom: 0.3rem;
-}
-.plantilla-pack p {
-  font-size: 0.92rem; color: rgba(26,58,74,0.75);
-  max-width: 440px;
-}
-.plantilla-pack-price {
-  font-family: var(--serif); font-size: 2.2rem;
-  color: var(--noche); line-height: 1;
+.plantillas-note a {
+  color: var(--mirador);
+  font-weight: 600;
+  text-decoration: none;
 }
 
 /* ---------- FOUNDING MEMBERS ---------- */
@@ -1522,45 +1512,36 @@ footer {
   <div class="section-inner section-head-center">
     <span class="section-label fade-up">Plantillas Excel</span>
     <h2 class="section-title fade-up">Para los que <em>quieren ir más allá</em></h2>
-    <p class="section-sub fade-up">Plantillas profesionales que se conectan de forma nativa con tu exportación premium. Empieza gratis con la plantilla básica; las avanzadas son de compra única, sin suscripción.</p>
+    <p class="section-sub fade-up">Cinco plantillas Excel profesionales, todas gratuitas. La primera la tienes en treinta segundos a cambio de tu email. Las otras cuatro están disponibles en cuanto creas tu cuenta — también gratuita. Los suscriptores premium obtienen además la sincronización automática con la app.</p>
     <div class="plantillas-grid">
       <div class="plantilla free fade-up">
-        <span class="plantilla-tag free-tag">Gratis</span>
+        <span class="plantilla-tag free-tag">Descarga inmediata</span>
         <h4>Presupuesto mensual básico</h4>
-        <p>Seguimiento mensual de ingresos, gastos y ahorro con el formato nativo de Mirador Financiero. La puerta de entrada al catálogo: descárgatela a cambio de tu email.</p>
-        <div class="plantilla-price">0 €</div>
-        <a href="https://3d82f5f9.sibforms.com/serve/MUIFAPXWR8mmiDOWvYDwf9K-ibp52Z2dPFxA1FrkUWYrGzfmp0dl3-LILPQI_xP8___pOeWnEtcIUfnosvvLkY9knXrwcxjNTK-hgJrM615OjzOzrVL0URYmKeuNJKl8IBusOQvJmGQqw5qBzEDMYjXhYH1R8f6sznTWgFRMY4ugPP42dBp8jZR8Jcgpf-N-Nxwb03e9AnPLld53fw==" class="plan-cta secondary" style="margin-top:1rem;display:inline-block;">Descargar gratis →</a>
+        <p>Seguimiento mensual de ingresos, gastos y ahorro con el formato nativo de Mirador Financiero. La descarga más directa: solo necesitas tu email.</p>
+        <a href="https://3d82f5f9.sibforms.com/serve/MUIFAPXWR8mmiDOWvYDwf9K-ibp52Z2dPFxA1FrkUWYrGzfmp0dl3-LILPQI_xP8___pOeWnEtcIUfnosvvLkY9knXrwcxjNTK-hgJrM615OjzOzrVL0URYmKeuNJKl8IBusOQvJmGQqw5qBzEDMYjXhYH1R8f6sznTWgFRMY4ugPP42dBp8jZR8Jcgpf-N-Nxwb03e9AnPLld53fw==" class="plan-cta secondary" style="margin-top:1.5rem;display:inline-block;">Descargar gratis →</a>
       </div>
       <div class="plantilla fade-up">
-        <span class="plantilla-tag paid-tag">De pago</span>
+        <span class="plantilla-tag app-tag">Con cuenta gratuita</span>
         <h4>Presupuesto familiar anual</h4>
-        <p>Visión completa de ingresos y gastos del hogar a 12 meses vista, con comparativa año anterior.</p>
-        <div class="plantilla-price">9,90 €</div>
+        <p>Visión completa de ingresos y gastos del hogar a 12 meses vista, con comparativa año anterior. Se sincroniza automáticamente con tus datos en la versión premium.</p>
       </div>
       <div class="plantilla fade-up">
-        <span class="plantilla-tag paid-tag">De pago</span>
+        <span class="plantilla-tag app-tag">Con cuenta gratuita</span>
         <h4>Seguimiento de patrimonio neto</h4>
-        <p>Registro mensual de activos y pasivos, con evolución histórica y gráfico de tendencia.</p>
-        <div class="plantilla-price">9,90 €</div>
+        <p>Registro mensual de activos y pasivos, con evolución histórica y gráfico de tendencia. Se sincroniza automáticamente con tus datos en la versión premium.</p>
       </div>
       <div class="plantilla fade-up">
-        <span class="plantilla-tag paid-tag">De pago</span>
+        <span class="plantilla-tag app-tag">Con cuenta gratuita</span>
         <h4>Planificador de objetivos</h4>
-        <p>Calcula cuánto ahorrar al mes para cumplir varios objetivos con fechas distintas.</p>
-        <div class="plantilla-price">9,90 €</div>
+        <p>Calcula cuánto ahorrar al mes para cumplir varios objetivos con fechas distintas. Se sincroniza automáticamente con tus datos en la versión premium.</p>
       </div>
       <div class="plantilla fade-up">
-        <span class="plantilla-tag paid-tag">De pago</span>
+        <span class="plantilla-tag app-tag">Con cuenta gratuita</span>
         <h4>Simulador de hipoteca</h4>
-        <p>Compara escenarios, amortizaciones anticipadas y su impacto real en los intereses pagados.</p>
-        <div class="plantilla-price">9,90 €</div>
+        <p>Compara escenarios, amortizaciones anticipadas y su impacto real en los intereses pagados. Se sincroniza automáticamente con tus datos en la versión premium.</p>
       </div>
-      <div class="plantilla-pack fade-up">
-        <div>
-          <h4>Pack completo — las 4 plantillas de pago</h4>
-          <p>Las cuatro con descuento y actualizaciones incluidas durante 12 meses. La gratuita se incluye también, por supuesto.</p>
-        </div>
-        <div class="plantilla-pack-price">29,90 €</div>
+      <div class="plantillas-note fade-up">
+        Las cuatro plantillas avanzadas están disponibles al crear tu cuenta gratuita en Mirador. &nbsp;<a href="#cta-final">Crear cuenta gratis →</a>
       </div>
     </div>
   </div>
@@ -1579,7 +1560,7 @@ footer {
       <div class="founding-item fade-up"><div class="founding-item-num">3 meses</div><div class="founding-item-label">de premium completo, sin coste</div></div>
       <div class="founding-item fade-up"><div class="founding-item-num">4,50 €/mes</div><div class="founding-item-label">en la suscripción premium, de por vida</div></div>
       <div class="founding-item fade-up"><div class="founding-item-num">1 €/mes</div><div class="founding-item-label">para el complemento bancario</div></div>
-      <div class="founding-item fade-up"><div class="founding-item-num">−30%</div><div class="founding-item-label">en tu primera plantilla Excel</div></div>
+      <div class="founding-item fade-up"><div class="founding-item-num">5 plantillas</div><div class="founding-item-label">Excel con sincronización activa desde el primer día</div></div>
     </div>
     <div class="founding-bar fade-up"><div class="founding-bar-fill"></div></div>
     <div class="founding-counter fade-up"><strong>68</strong> / 200 plazas ocupadas · quedan <strong>132</strong></div>
