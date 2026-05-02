@@ -8,6 +8,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+<style>
+  /* Neutralizar estilos por defecto de Brevo */
+  #sib-container { background-color: transparent !important; border: none !important; border-radius: 0 !important; max-width: 100% !important; text-align: left !important; }
+  .sib-form { background-color: transparent !important; text-align: left !important; }
+  #sib-form-container { background-color: transparent !important; }
+  .sib-form-block { background-color: transparent !important; }
+  .sib-form-block p { display: none; } /* Ocultar título genérico "Curso 7 días" */
+  .sib-form-message-panel { max-width: 100% !important; }
+</style>
 <style>
 :root {
   --noche: #1A3A4A;
@@ -452,24 +462,38 @@ footer {
     <div class="form-card-title">Empieza mañana a las 9:00</div>
     <div class="form-card-sub">Apúntate hoy y mañana recibes el Día 1. Sin coste, sin tarjeta, sin trampa.</div>
 
-    <!--
-      INSTRUCCIONES DE INTEGRACIÓN:
-      Sustituye este formulario HTML por el código que genera Brevo en:
-      Contacts → Forms → Formulario-Curso7D → Get the code (HTML snippet)
-
-      Para mantener los estilos de Mirador, aplica estas clases a los elementos del formulario de Brevo:
-      - Cada campo (label + input): envuélvelo en un <div class="form-group">
-      - El botón de envío: añade la clase "form-submit"
-    -->
-    <div class="form-group">
-      <label for="nombre">Nombre</label>
-      <input type="text" id="nombre" name="NOMBRE" placeholder="Tu nombre" autocomplete="given-name">
+    <div id="sib-form-container" class="sib-form-container">
+      <div id="error-message" class="sib-form-message-panel" style="font-size:14px; text-align:left; font-family:var(--sans); color:#661d1d; background-color:#ffeded; border-radius:10px; border-color:#ff4949; margin-bottom:12px;">
+        <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+          <span class="sib-form-message-panel__inner-text">No hemos podido validar tu suscripción. Comprueba el email e inténtalo de nuevo.</span>
+        </div>
+      </div>
+      <div id="success-message" class="sib-form-message-panel" style="font-size:14px; text-align:left; font-family:var(--sans); color:#085229; background-color:#e7faf0; border-radius:10px; border-color:#13ce66; margin-bottom:12px;">
+        <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+          <span class="sib-form-message-panel__inner-text">✓ Suscripción completada. Revisa tu bandeja de entrada para confirmar.</span>
+        </div>
+      </div>
+      <form id="sib-form" method="POST" action="https://3d82f5f9.sibforms.com/serve/MUIFAHkTYZC0Atuxg6XKrW2Mn2gaVXGpJvevtfYbkKyXieysVpRkHU3Or7ixQr460Uh4KRALnG288RaQhd-cKyapfxemY0PUu9qHGB_lJk50yUwg3bD39pDfhJpXITzcZrN7risq01rko1ur1aQMZJMljKD8yDcyuNyyHZr2nQqHmdghZMghfeH-iR7-BUWr5vSpac3Le6ogtcTPag==" data-type="subscription">
+        <div class="form-group">
+          <label for="NOMBRE">Nombre</label>
+          <input class="input" type="text" id="NOMBRE" name="NOMBRE" placeholder="Tu nombre" autocomplete="given-name" data-required="true" required />
+          <label class="entry__error entry__error--primary" style="font-size:13px; color:#661d1d; margin-top:4px;"></label>
+        </div>
+        <div class="form-group">
+          <label for="EMAIL">Email</label>
+          <input class="input" type="email" id="EMAIL" name="EMAIL" placeholder="tu@email.com" autocomplete="email" data-required="true" required />
+          <label class="entry__error entry__error--primary" style="font-size:13px; color:#661d1d; margin-top:4px;"></label>
+        </div>
+        <button type="submit" class="form-submit sib-form-block__button sib-form-block__button-with-loader">
+          <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512" style="width:16px;height:16px;margin-right:8px;">
+            <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
+          </svg>
+          Quiero el curso gratuito →
+        </button>
+        <input type="text" name="email_address_check" value="" class="input--hidden">
+        <input type="hidden" name="locale" value="es">
+      </form>
     </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="EMAIL" placeholder="tu@email.com" autocomplete="email">
-    </div>
-    <button type="submit" class="form-submit">Quiero el curso gratuito →</button>
 
     <p class="form-privacy">
       Sin spam. Solo los 7 emails del curso y, si te interesa, la newsletter semanal.<br>
@@ -656,6 +680,17 @@ function cookieDecision(choice) {
     <button class="cookie-btn cookie-btn-accept" onclick="cookieDecision('accepted')">Aceptar</button>
   </div>
 </div>
+
+<script>
+  window.REQUIRED_CODE_ERROR_MESSAGE = 'Elija un código de país';
+  window.LOCALE = 'es';
+  window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "La información que has proporcionado no es válida. Comprueba el formato del campo e inténtalo de nuevo.";
+  window.REQUIRED_ERROR_MESSAGE = "Este campo no puede quedarse vacío.";
+  window.GENERIC_INVALID_MESSAGE = "La información que has proporcionado no es válida. Comprueba el formato del campo e inténtalo de nuevo.";
+  window.translation = { common: { selectedList: '{quantity} lista seleccionada', selectedLists: '{quantity} listas seleccionadas' } };
+  var AUTOHIDE = Boolean(0);
+</script>
+<script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
 
 </body>
 </html>
