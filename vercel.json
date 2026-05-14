@@ -4,11 +4,11 @@
   "rewrites": [
     {
       "source": "/blog",
-      "destination": "https://origin.miradorfinanciero.com"
+      "destination": "http://origin.miradorfinanciero.com"
     },
     {
       "source": "/blog/:path*",
-      "destination": "https://origin.miradorfinanciero.com/:path*"
+      "destination": "http://origin.miradorfinanciero.com/:path*"
     }
   ]
 }
