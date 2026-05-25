@@ -1,14 +1,5 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
   "rewrites": [
-    {
-      "source": "/blog",
-      "destination": "https://blog.miradorfinanciero.com"
-    },
-    {
-      "source": "/blog/:path*",
-      "destination": "https://blog.miradorfinanciero.com/:path*"
-    }
+    { "source": "/calculadoras/comprar-alquilar", "destination": "/calculadoras/comprar-alquilar.html" }
   ]
 }
