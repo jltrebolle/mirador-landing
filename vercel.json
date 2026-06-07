@@ -1,6 +1,9 @@
 {
   "rewrites": [
     { "source": "/calculadoras/comprar-alquilar", "destination": "/calculadoras/comprar-alquilar.html" },
-    { "source": "/plantillas", "destination": "/plantillas.html" }
+    { "source": "/plantillas", "destination": "/plantillas.html" },
+    { "source": "/blog", "destination": "https://blog.miradorfinanciero.com/" },
+    { "source": "/blog/", "destination": "https://blog.miradorfinanciero.com/" },
+    { "source": "/blog/:path*", "destination": "https://blog.miradorfinanciero.com/:path*" }
   ]
 }
