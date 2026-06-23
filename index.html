@@ -405,6 +405,8 @@ section { padding: 6rem 2rem; position: relative; }
   transition: all 0.3s;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .feature::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0;
@@ -439,6 +441,28 @@ section { padding: 6rem 2rem; position: relative; }
 .feature-badge.gratuito { background: rgba(58,175,169,0.12); color: var(--horizonte); }
 .feature-badge.premium { background: rgba(240,200,74,0.18); color: var(--destello-dark); }
 .feature-badge.proximamente { background: rgba(46,110,142,0.1); color: var(--mirador); }
+.feature-badge.compromiso { background: rgba(26,58,74,0.08); color: var(--noche); }
+.feature-close { font-family: var(--serif); font-style: italic; font-size: 1.02rem; color: var(--noche); line-height: 1.4; margin-top: auto; padding-top: 0.6rem; margin-bottom: 1rem; }
+/* ---------- CALCULADORA PREVIEW ---------- */
+.calcprev { background: var(--fondo-warm); }
+.calc-card { background: var(--blanco); border: 1px solid var(--borde); border-radius: 24px; box-shadow: var(--shadow-xl); max-width: 920px; margin: 2.5rem auto 0; padding: 2rem 2.2rem; position: relative; }
+.calc-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+.calc-title { font-family: var(--serif); font-size: 1.3rem; color: var(--noche); font-weight: 400; }
+.calc-title span { color: var(--mirador); font-style: italic; }
+.calc-pill { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: rgba(240,200,74,0.18); color: var(--destello-dark); }
+.calc-chips { display: flex; gap: 0.55rem; flex-wrap: wrap; margin-bottom: 1.3rem; }
+.calc-chip { background: var(--fondo); border: 1px solid var(--borde); border-radius: 999px; padding: 6px 13px; font-size: 12.5px; color: var(--texto-suave); }
+.calc-chip strong { color: var(--noche); font-weight: 600; }
+.calc-chip em { color: var(--horizonte); font-style: normal; font-size: 11px; letter-spacing: 0.04em; }
+.calc-verdict { font-family: var(--serif); font-size: 1.18rem; color: var(--noche); line-height: 1.35; margin-bottom: 1.3rem; }
+.calc-verdict b { color: var(--destello-dark); font-weight: 400; }
+.calc-verdict em { color: var(--horizonte); font-style: italic; }
+.calc-legend { display: flex; gap: 1.4rem; flex-wrap: wrap; margin-top: 1rem; font-size: 12.5px; color: var(--texto-suave); }
+.calc-legend span { display: inline-flex; align-items: center; gap: 7px; }
+.calc-swatch { width: 16px; height: 3px; border-radius: 2px; display: inline-block; }
+.calc-note { font-size: 11.5px; color: var(--texto-suave); margin-top: 1rem; font-style: italic; }
+@media (max-width: 768px) { .calc-card { padding: 1.4rem 1.2rem; } .calc-verdict { font-size: 1.05rem; } }
+
 
 /* ---------- PERSONAS ---------- */
 .personas { background: var(--fondo-warm); position: relative; overflow: hidden; }
@@ -1196,11 +1220,10 @@ footer {
   <div class="nav-links">
     <a href="#problema">El problema</a>
     <a href="#features">Funcionalidades</a>
+    <a href="#simulador">Simulador</a>
     <a href="#precios">Precios</a>
     <a href="#faq">Preguntas</a>
     <a href="/blog">Blog</a>
-    <a href="/curso-7-dias">Curso gratuito</a>
-    <a href="/sobre">Sobre</a>
     <a href="https://app.miradorfinanciero.com/login" class="nav-cta">Empezar gratis</a>
   </div>
   <button class="nav-burger" onclick="toggleNav()" aria-label="Menú" aria-expanded="false">
@@ -1292,55 +1315,28 @@ footer {
   <div class="section-inner section-head-center">
     <span class="section-label fade-up">Qué hace Mirador Financiero</span>
     <h2 class="section-title fade-up">Todo lo que necesitas,<br><em>nada de lo que no</em></h2>
-    <p class="section-sub fade-up">Sin funciones de relleno. Sin dashboards que nadie entiende. Empezamos resolviendo lo esencial: el presupuesto y el ahorro. Lo demás llegará cuando toque.</p>
+    <p class="section-sub fade-up">Gastos, presupuesto y objetivos de ahorro los das por hechos: están, funcionan y no estorban. Donde Mirador se distingue del resto es en lo que viene después — planificar, decidir y hacerlo con tu fiscalidad real.</p>
     <div class="features-grid">
       <div class="feature fade-up">
-        <div class="feature-icon">📊</div>
-        <h3>Control de gastos</h3>
-        <p>Registra o importa tus movimientos, categorízalos y entiende tu patrón de gasto de un vistazo. Hasta 8 categorías en gratuito, ilimitadas en premium.</p>
-        <span class="feature-badge gratuito">Gratuito</span>
-      </div>
-      <div class="feature fade-up">
-        <div class="feature-icon">🎯</div>
-        <h3>Presupuesto mensual</h3>
-        <p>Fija un tope por categoría y ve el progreso en tiempo real. Mirador Financiero te avisa antes de que te pases, no después.</p>
-        <span class="feature-badge gratuito">Gratuito</span>
-      </div>
-      <div class="feature fade-up">
-        <div class="feature-icon">🏔️</div>
-        <h3>Objetivos de ahorro</h3>
-        <p>Vacaciones, fondo de emergencia, entrada de piso. Ponle nombre, importe y fecha, y Mirador Financiero te dice si vas bien. Uno en gratuito, los que quieras en premium.</p>
-        <span class="feature-badge gratuito">Gratuito</span>
-      </div>
-      <div class="feature fade-up">
-        <div class="feature-icon">🗓️</div>
-        <h3>Planificación a largo plazo</h3>
-        <p>Proyecciones y simulador de escenarios. ¿Qué pasa si cambio de sueldo? ¿Si compro vivienda? ¿Si me jubilo dentro de 20 años?</p>
+        <div class="feature-icon">🔭</div>
+        <h3>¿Te puedes jubilar a los 58?</h3>
+        <p>El Simulador de Vida no suelta charlas motivacionales: parte de tu situación real —tu ahorro, tu gasto, tu inversión— y te dice si el año sabático, la jubilación anticipada o la compra de la casa salen o no salen. Cambias un supuesto y ves el efecto sobre tu patrimonio dentro de veinte años. Antes de decidir, no después.</p>
+        <p class="feature-close">Dejas de planificar a ciegas.</p>
         <span class="feature-badge premium">Premium</span>
       </div>
       <div class="feature fade-up">
-        <div class="feature-icon">📑</div>
-        <h3>Informes y alertas</h3>
-        <p>Resúmenes mensuales y anuales automáticos, con análisis de tendencias. Alertas cuando algo se desvía del plan o aparece un gasto recurrente nuevo.</p>
+        <div class="feature-icon">🧮</div>
+        <h3>¿Amortizo hipoteca o invierto el excedente?</h3>
+        <p>Calculadoras hay en todo internet, y gratis. La diferencia es que las de Mirador llegan rellenas con tus números: la hipoteca, el interés compuesto, amortizar frente a invertir o comprar frente a alquilar arrancan con lo que ya tienes registrado —tu préstamo, tus ingresos, tu cartera—, no con datos de manual. ¿Te llega para la entrada del piso? La respuesta sale de tu caso, no de un ejemplo.</p>
+        <p class="feature-close">Las cuentas, hechas con tu dinero. En un minuto.</p>
         <span class="feature-badge premium">Premium</span>
       </div>
       <div class="feature fade-up">
-        <div class="feature-icon">📈</div>
-        <h3>Portfolio de inversión</h3>
-        <p>Seguimiento de acciones, fondos y ETFs con rentabilidad real. Lo activaremos cuando hayamos comprobado que existe demanda suficiente para construirlo bien.</p>
-        <span class="feature-badge proximamente">Próximamente</span>
-      </div>
-      <div class="feature fade-up">
-        <div class="feature-icon">🗂️</div>
-        <h3>Separación personal / negocio</h3>
-        <p>Diferencia gastos personales y profesionales desde el registro. Una foto limpia de cada ámbito, sin mezclas. Útil si tienes actividad por cuenta propia o gestionas más de un bolsillo.</p>
-        <span class="feature-badge premium">Premium</span>
-      </div>
-      <div class="feature fade-up">
-        <div class="feature-icon">📤</div>
-        <h3>Exportación avanzada</h3>
-        <p>Formato Excel compatible con las plantillas Mirador Financiero. Exportas, abres la plantilla, y tus gráficos y análisis se actualizan automáticamente.</p>
-        <span class="feature-badge premium">Premium</span>
+        <div class="feature-icon">🤝</div>
+        <h3>No cobramos de ningún banco</h3>
+        <p>Casi todas las apps «gratis» viven de colocarte el producto de quien mejor les paga. Nosotros no te vendemos fondos, ni seguros, ni hipotecas, ni cobramos comisión de nadie por recomendártelos. Te explicamos cómo funciona cada tipo de producto y decides tú.</p>
+        <p class="feature-close">Tu dinero a tu favor. Solo el tuyo.</p>
+        <span class="feature-badge compromiso">Nuestro compromiso</span>
       </div>
     </div>
   </div>
@@ -1351,7 +1347,7 @@ footer {
   <div class="section-inner section-head-center">
     <span class="section-label fade-up">Para quién es</span>
     <h2 class="section-title fade-up">Mirador Financiero es para ti <em>si te reconoces aquí</em></h2>
-    <p class="section-sub fade-up">No somos una app genérica. Construimos para tres tipos de personas muy concretas, y arrancamos con la primera.</p>
+    <p class="section-sub fade-up">No somos una app genérica. Nuestro foco ahora es el Planificador: quien quiere un plan, no un registro de errores. Y si además inviertes, todo vive en el mismo lugar.</p>
     <div class="personas-grid">
       <div class="persona primary fade-up">
         <div class="persona-icon">🗺️</div>
@@ -1373,17 +1369,6 @@ footer {
           <li>Portfolio tracker con rentabilidad real</li>
           <li>Integración con gastos e ingresos</li>
           <li>Cálculo de patrimonio neto</li>
-        </ul>
-      </div>
-      <div class="persona fade-up">
-        <div class="persona-icon">💼</div>
-        <h3>El Autónomo</h3>
-        <div class="persona-role">El que mezcla lo personal y lo profesional</div>
-        <p>Ingresos variables, gastos que a veces son de empresa y a veces personales. Necesitas claridad, no más caos encima del caos.</p>
-        <ul>
-          <li>Categorías diferenciadas personal / negocio</li>
-          <li>Presupuesto separado por ámbito</li>
-          <li>Exportación para trabajar con tu gestor</li>
         </ul>
       </div>
     </div>
@@ -1485,6 +1470,50 @@ footer {
   </div>
 </section>
 
+<!-- CALCULADORA PREVIEW -->
+<section id="simulador" class="calcprev">
+  <div class="section-inner section-head-center">
+    <span class="section-label fade-up">Una pregunta, respondida</span>
+    <h2 class="section-title fade-up">¿Sale o no sale?<br><em>Con tus números, no con un ejemplo.</em></h2>
+    <p class="section-sub fade-up">Esto es el Simulador de Vida resolviendo una decisión real: jubilarse antes de tiempo. No te da una charla; te da una respuesta y te enseña la palanca para cambiarla.</p>
+    <div class="calc-card fade-up">
+      <div class="calc-head">
+        <div class="calc-title">Simulador de Vida · <span>jubilación anticipada</span></div>
+        <div class="calc-pill">Premium</div>
+      </div>
+      <div class="calc-chips">
+        <div class="calc-chip"><strong>Ahorro hoy</strong> 84.000 € &nbsp;<em>· tus datos</em></div>
+        <div class="calc-chip"><strong>Aportación</strong> 950 €/mes &nbsp;<em>· tus datos</em></div>
+        <div class="calc-chip"><strong>Edad objetivo</strong> 58</div>
+        <div class="calc-chip"><strong>Gasto anual</strong> 33.500 €</div>
+      </div>
+      <div class="calc-verdict">Con tu ritmo actual, jubilarte a los 58 <b>agota tu patrimonio a los 78.</b> Para que aguante toda tu vida, <em>necesitas unos 1.900 €/mes</em> — o retrasar la fecha un par de años.</div>
+      <svg class="calc-chart" viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Proyección de patrimonio">
+        <defs>
+          <linearGradient id="cpfill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2E6E8E" stop-opacity="0.18"/>
+            <stop offset="1" stop-color="#2E6E8E" stop-opacity="0.02"/>
+          </linearGradient>
+        </defs>
+        <line x1="10" y1="144.0" x2="750" y2="144.0" stroke="#1E2D38" stroke-opacity="0.06"/><line x1="10" y1="16.0" x2="750" y2="16.0" stroke="#1E2D38" stroke-opacity="0.06"/>
+        <line x1="10.0" y1="272.0" x2="750.0" y2="272.0" stroke="#1E2D38" stroke-opacity="0.15"/>
+        <path d="M 10.0,272.0 L 10.0,244.5 L 23.7,239.4 L 37.4,234.0 L 51.1,228.4 L 64.8,222.5 L 78.5,216.3 L 92.2,209.7 L 105.9,202.9 L 119.6,195.7 L 133.3,188.2 L 147.0,180.2 L 160.7,171.9 L 174.4,163.2 L 188.1,154.0 L 201.9,144.4 L 215.6,134.2 L 229.3,123.6 L 243.0,112.5 L 256.7,118.7 L 270.4,125.0 L 284.1,131.6 L 297.8,138.4 L 311.5,145.3 L 325.2,152.5 L 338.9,159.9 L 352.6,167.5 L 366.3,175.3 L 380.0,183.4 L 393.7,191.7 L 407.4,200.3 L 421.1,209.1 L 434.8,218.2 L 448.5,227.5 L 462.2,237.2 L 475.9,247.1 L 489.6,257.3 L 503.3,267.8 L 517.0,272.0 L 530.7,272.0 L 544.4,272.0 L 558.1,272.0 L 571.9,272.0 L 585.6,272.0 L 599.3,272.0 L 613.0,272.0 L 626.7,272.0 L 640.4,272.0 L 654.1,272.0 L 667.8,272.0 L 681.5,272.0 L 695.2,272.0 L 708.9,272.0 L 722.6,272.0 L 736.3,272.0 L 750.0,272.0 L 750.0,272.0 Z" fill="url(#cpfill)"/>
+        <line x1="243.0" y1="16.0" x2="243.0" y2="272.0" stroke="#F0C84A" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <text x="249.0" y="28.0" font-family="DM Sans,sans-serif" font-size="11" fill="#D9AE2C">Jubilación · 58</text>
+        <path d="M 10.0,244.5 L 23.7,235.6 L 37.4,226.4 L 51.1,216.6 L 64.8,206.4 L 78.5,195.6 L 92.2,184.3 L 105.9,172.5 L 119.6,160.1 L 133.3,147.0 L 147.0,133.3 L 160.7,118.9 L 174.4,103.7 L 188.1,87.9 L 201.9,71.2 L 215.6,53.7 L 229.3,35.3 L 243.0,16.0 L 256.7,19.3 L 270.4,22.7 L 284.1,26.2 L 297.8,29.8 L 311.5,33.5 L 325.2,37.3 L 338.9,41.2 L 352.6,45.3 L 366.3,49.4 L 380.0,53.7 L 393.7,58.2 L 407.4,62.7 L 421.1,67.4 L 434.8,72.2 L 448.5,77.2 L 462.2,82.3 L 475.9,87.6 L 489.6,93.1 L 503.3,98.7 L 517.0,104.4 L 530.7,110.4 L 544.4,116.5 L 558.1,122.8 L 571.9,129.3 L 585.6,136.0 L 599.3,142.9 L 613.0,150.0 L 626.7,157.3 L 640.4,164.8 L 654.1,172.6 L 667.8,180.6 L 681.5,188.8 L 695.2,197.3 L 708.9,206.0 L 722.6,215.0 L 736.3,224.2 L 750.0,233.8" fill="none" stroke="#3AAFA9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M 10.0,244.5 L 23.7,239.4 L 37.4,234.0 L 51.1,228.4 L 64.8,222.5 L 78.5,216.3 L 92.2,209.7 L 105.9,202.9 L 119.6,195.7 L 133.3,188.2 L 147.0,180.2 L 160.7,171.9 L 174.4,163.2 L 188.1,154.0 L 201.9,144.4 L 215.6,134.2 L 229.3,123.6 L 243.0,112.5 L 256.7,118.7 L 270.4,125.0 L 284.1,131.6 L 297.8,138.4 L 311.5,145.3 L 325.2,152.5 L 338.9,159.9 L 352.6,167.5 L 366.3,175.3 L 380.0,183.4 L 393.7,191.7 L 407.4,200.3 L 421.1,209.1 L 434.8,218.2 L 448.5,227.5 L 462.2,237.2 L 475.9,247.1 L 489.6,257.3 L 503.3,267.8 L 517.0,272.0 L 530.7,272.0 L 544.4,272.0 L 558.1,272.0 L 571.9,272.0 L 585.6,272.0 L 599.3,272.0 L 613.0,272.0 L 626.7,272.0 L 640.4,272.0 L 654.1,272.0 L 667.8,272.0 L 681.5,272.0 L 695.2,272.0 L 708.9,272.0 L 722.6,272.0 L 736.3,272.0 L 750.0,272.0" fill="none" stroke="#2E6E8E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="517.0" cy="272.0" r="4.5" fill="#fff" stroke="#C0392B" stroke-width="2"/>
+        <text x="517.0" y="262.0" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" font-weight="600" fill="#C0392B">se agota · 78</text>
+        <text x="10.0" y="291" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#5A6B78">41</text><text x="133.3" y="291" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#5A6B78">50</text><text x="243.0" y="291" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#5A6B78">58</text><text x="407.4" y="291" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#5A6B78">70</text><text x="544.4" y="291" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#5A6B78">80</text><text x="750.0" y="291" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#5A6B78">95</text>
+      </svg>
+      <div class="calc-legend">
+        <span><i class="calc-swatch" style="background:#2E6E8E;"></i> Tu plan actual (950 €/mes)</span>
+        <span><i class="calc-swatch" style="background:#3AAFA9;"></i> Ajustado (1.900 €/mes)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ECOSISTEMA -->
 <section class="ecosistema">
   <div class="section-inner section-head-center">
@@ -1554,7 +1583,7 @@ footer {
           <li class="yes">Objetivos de ahorro ilimitados</li>
           <li class="yes">Separación gastos personales y de negocio</li>
           <li class="yes">Personalización de la regla 50/30/20 con tus datos reales</li>
-          <li class="yes">Calculadoras con tus datos reales</li>
+          <li class="yes">Calculadoras y simuladores con tus datos reales</li>
           <li class="yes">Soporte prioritario</li>
         </ul>
         <a href="https://app.miradorfinanciero.com/login" class="plan-cta primary">Suscribirme</a>
@@ -1567,46 +1596,6 @@ footer {
         <div class="addon-label">Complemento opcional · Próximamente</div>
         <h3>Conexión bancaria automática</h3>
         <p>¿Prefieres no registrar a mano? Conecta tu banco vía PSD2 y que Mirador Financiero lo haga por ti. Será sumable a cualquiera de los dos planes, y lo facturaremos aparte porque tiene coste real por cuenta conectada — así no subimos el precio base para todos. <strong>Aún no está disponible:</strong> lo activaremos en una actualización posterior, y avisaremos con tiempo a quienes lo quieran usar.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PLANTILLAS EXCEL -->
-<section id="plantillas" class="plantillas">
-  <div class="section-inner section-head-center">
-    <span class="section-label fade-up">Plantillas Excel</span>
-    <h2 class="section-title fade-up">Para los que <em>quieren ir más allá</em></h2>
-    <p class="section-sub fade-up">Cinco plantillas Excel profesionales, todas gratuitas. La primera la tienes en treinta segundos a cambio de tu email. Las otras cuatro están disponibles en cuanto creas tu cuenta — también gratuita. Los suscriptores premium obtienen además la sincronización automática con la app.</p>
-    <div class="plantillas-grid">
-      <div class="plantilla free fade-up">
-        <span class="plantilla-tag free-tag">Descarga inmediata</span>
-        <h4>Presupuesto mensual básico</h4>
-        <p>Seguimiento mensual de ingresos, gastos y ahorro con el formato nativo de Mirador Financiero. La descarga más directa: solo necesitas tu email.</p>
-        <a href="https://3d82f5f9.sibforms.com/serve/MUIFAPXWR8mmiDOWvYDwf9K-ibp52Z2dPFxA1FrkUWYrGzfmp0dl3-LILPQI_xP8___pOeWnEtcIUfnosvvLkY9knXrwcxjNTK-hgJrM615OjzOzrVL0URYmKeuNJKl8IBusOQvJmGQqw5qBzEDMYjXhYH1R8f6sznTWgFRMY4ugPP42dBp8jZR8Jcgpf-N-Nxwb03e9AnPLld53fw==" class="plan-cta secondary" style="margin-top:1.5rem;display:inline-block;">Descargar gratis →</a>
-      </div>
-      <div class="plantilla fade-up">
-        <span class="plantilla-tag app-tag">Con cuenta gratuita</span>
-        <h4>Presupuesto familiar anual</h4>
-        <p>Visión completa de ingresos y gastos del hogar a 12 meses vista, con comparativa año anterior. Se sincroniza automáticamente con tus datos en la versión premium.</p>
-      </div>
-      <div class="plantilla fade-up">
-        <span class="plantilla-tag app-tag">Con cuenta gratuita</span>
-        <h4>Seguimiento de patrimonio neto</h4>
-        <p>Registro mensual de activos y pasivos, con evolución histórica y gráfico de tendencia. Se sincroniza automáticamente con tus datos en la versión premium.</p>
-      </div>
-      <div class="plantilla fade-up">
-        <span class="plantilla-tag app-tag">Con cuenta gratuita</span>
-        <h4>Planificador de objetivos</h4>
-        <p>Calcula cuánto ahorrar al mes para cumplir varios objetivos con fechas distintas. Se sincroniza automáticamente con tus datos en la versión premium.</p>
-      </div>
-      <div class="plantilla fade-up">
-        <span class="plantilla-tag app-tag">Con cuenta gratuita</span>
-        <h4>Simulador de hipoteca</h4>
-        <p>Compara escenarios, amortizaciones anticipadas y su impacto real en los intereses pagados. Se sincroniza automáticamente con tus datos en la versión premium.</p>
-      </div>
-      <div class="plantillas-note fade-up">
-        Las cuatro plantillas avanzadas están disponibles al crear tu cuenta gratuita en Mirador. &nbsp;<a href="#cta-final">Crear cuenta gratis →</a>
       </div>
     </div>
   </div>
@@ -1705,6 +1694,9 @@ footer {
     <div class="cta-final-trust fade-up" style="margin-top:16px;">
   ¿Prefieres empezar por algo concreto? → <a href="/curso-7-dias" style="color:var(--horizonte);text-decoration:underline;text-underline-offset:3px;">Curso gratuito de 7 días</a>
     </div>
+    <div class="cta-final-trust fade-up" style="margin-top:10px;">
+  ¿Solo quieres una plantilla para empezar? → <a href="https://3d82f5f9.sibforms.com/serve/MUIFAPXWR8mmiDOWvYDwf9K-ibp52Z2dPFxA1FrkUWYrGzfmp0dl3-LILPQI_xP8___pOeWnEtcIUfnosvvLkY9knXrwcxjNTK-hgJrM615OjzOzrVL0URYmKeuNJKl8IBusOQvJmGQqw5qBzEDMYjXhYH1R8f6sznTWgFRMY4ugPP42dBp8jZR8Jcgpf-N-Nxwb03e9AnPLld53fw==" style="color:var(--horizonte);text-decoration:underline;text-underline-offset:3px;">Descarga gratis la de presupuesto mensual</a>
+    </div>
   </div>
 </section>
 
@@ -1724,6 +1716,7 @@ footer {
     <div class="footer-tagline">Tus finanzas, con perspectiva.</div>
     <div class="footer-legal">
       <a href="/sobre">Sobre el proyecto</a>
+      <a href="/curso-7-dias">Curso gratuito</a>
       <a href="/privacidad.html">Política de privacidad</a>
       <a href="/aviso-legal.html">Aviso legal</a>
       <a href="/cookies.html">Cookies</a>
