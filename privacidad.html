@@ -92,7 +92,7 @@ footer {
 <main class="legal-page">
   <div class="legal-eyebrow">Privacidad</div>
   <h1 class="legal-title">Política de Privacidad</h1>
-  <p class="legal-meta">Última actualización: abril 2026 · Amautta Soluciones, S.L.</p>
+  <p class="legal-meta">Última actualización: 23 de junio de 2026 · Amautta Soluciones, S.L.</p>
   <hr class="legal-divider">
 
   <p>En cumplimiento del Reglamento (UE) 2016/679 (RGPD) y de la Ley Orgánica 3/2018 (LOPDGDD), Amautta Soluciones, S.L. informa sobre el tratamiento de los datos personales recogidos a través de miradorfinanciero.com.</p>
@@ -113,6 +113,8 @@ footer {
   <p>Recogidos mediante cookies analíticas (con consentimiento previo). Finalidad: análisis del comportamiento de los usuarios para mejorar el servicio.</p>
   <h3>Datos de facturación y pago</h3>
   <p>Recogidos en el momento de contratar suscripciones o cursos de pago. El tratamiento de datos de pago se realiza a través de Stripe, Inc., que actúa como encargado del tratamiento bajo los estándares PCI-DSS.</p>
+  <h3>Datos financieros de la aplicación</h3>
+  <p>Si te registras en la aplicación (app.miradorfinanciero.com), tratamos los datos que introduces voluntariamente para su funcionamiento: cuentas, transacciones, presupuestos, objetivos de ahorro e inversión, y los datos de identificación de tu cuenta (nombre, correo electrónico). Estos datos se alojan en una base de datos dedicada en la región UE West (Irlanda), gestionada por Supabase, Inc. como encargado del tratamiento.</p>
 
   <h2>3. Base legal del tratamiento</h2>
   <ul>
@@ -130,6 +132,7 @@ footer {
   <h2>5. Destinatarios y encargados del tratamiento</h2>
   <p>Los datos pueden comunicarse a los siguientes encargados, con los que se han suscrito los contratos correspondientes:</p>
   <ul>
+    <li><strong>Supabase, Inc.:</strong> alojamiento de la base de datos de la aplicación (cuentas, transacciones, presupuestos), en la región UE West (Irlanda).</li>
     <li><strong>Brevo SAS:</strong> plataforma de email marketing.</li>
     <li><strong>Stripe, Inc.:</strong> pasarela de pago.</li>
     <li><strong>Automattic, Inc. (WordPress.com):</strong> plataforma de blog.</li>
@@ -137,7 +140,14 @@ footer {
   </ul>
   <p>No se realizan transferencias fuera del Espacio Económico Europeo, salvo las inherentes al uso de los proveedores anteriores, quienes ofrecen garantías adecuadas (cláusulas contractuales tipo o equivalentes).</p>
 
-  <h2>6. Derechos de los interesados</h2>
+  <h2>6. Medidas de seguridad técnicas y organizativas</h2>
+  <p>Los datos de la aplicación se alojan sobre infraestructura que aplica cifrado en reposo de la totalidad de los datos mediante el algoritmo AES-256 —incluidas las copias de seguridad—, y cifrado en tránsito mediante TLS 1.2 o superior en todas las conexiones. Las claves de cifrado se gestionan mediante módulos de seguridad hardware (HSM) conformes con el estándar FIPS 140-2.</p>
+  <p>El acceso a los datos dentro de la base de datos está además restringido mediante políticas de seguridad a nivel de fila (Row Level Security), de forma que cada usuario solo puede leer o modificar sus propios registros.</p>
+  <div class="info-box">
+    <p>No aplicamos cifrado adicional a nivel de columna sobre los importes y saldos de la aplicación: al tratarse de datos personales ordinarios —no de categorías especiales del art. 9 RGPD— y estar ya protegidos por el cifrado de disco completo, el cifrado en tránsito y el control de acceso por fila, consideramos estas medidas adecuadas y proporcionadas al riesgo conforme al art. 32 RGPD. Revisaremos esta valoración si el volumen o la sensibilidad de los datos tratados cambia de forma significativa.</p>
+  </div>
+
+  <h2>7. Derechos de los interesados</h2>
   <p>Puede ejercer en cualquier momento los siguientes derechos escribiendo a <a href="mailto:hola@miradorfinanciero.com">hola@miradorfinanciero.com</a> con el asunto <em>"Ejercicio de derechos RGPD"</em>:</p>
   <ul>
     <li><strong>Acceso:</strong> conocer qué datos tratamos.</li>
@@ -149,7 +159,7 @@ footer {
   </ul>
   <p>Responderemos en el plazo máximo de un mes. Si considera que el tratamiento no es conforme al RGPD, puede reclamar ante la <a href="https://www.aepd.es" target="_blank" rel="noopener">Agencia Española de Protección de Datos</a>.</p>
 
-  <h2>7. Modificaciones</h2>
+  <h2>8. Modificaciones</h2>
   <p>Nos reservamos el derecho a modificar esta política para adaptarla a cambios legislativos o del servicio. En caso de cambios sustanciales, lo comunicaremos a los usuarios registrados por email.</p>
 </main>
 <footer>
