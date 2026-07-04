@@ -1,11 +1,33 @@
 {
   "rewrites": [
-    { "source": "/calculadoras/comprar-alquilar", "destination": "/calculadoras/comprar-alquilar.html" },
-    { "source": "/plantillas", "destination": "/plantillas.html" }
+    {
+      "source": "/calculadoras/comprar-alquilar",
+      "destination": "/calculadoras/comprar-alquilar.html"
+    },
+    {
+      "source": "/plantillas",
+      "destination": "/plantillas.html"
+    },
+    {
+      "source": "/tudineroatufavor",
+      "destination": "/tudineroatufavor.html"
+    }
   ],
   "redirects": [
-    { "source": "/blog", "destination": "https://blog.miradorfinanciero.com/", "permanent": false },
-    { "source": "/blog/", "destination": "https://blog.miradorfinanciero.com/", "permanent": false },
-    { "source": "/blog/:path*", "destination": "https://blog.miradorfinanciero.com/:path*", "permanent": false }
+    {
+      "source": "/blog",
+      "destination": "https://blog.miradorfinanciero.com/",
+      "permanent": false
+    },
+    {
+      "source": "/blog/",
+      "destination": "https://blog.miradorfinanciero.com/",
+      "permanent": false
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "https://blog.miradorfinanciero.com/:path*",
+      "permanent": false
+    }
   ]
 }
