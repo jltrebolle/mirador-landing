@@ -15,6 +15,11 @@
   ],
   "redirects": [
     {
+      "source": "/tudineroatufavor/",
+      "destination": "/tudineroatufavor",
+      "permanent": true
+    },
+    {
       "source": "/blog",
       "destination": "https://blog.miradorfinanciero.com/",
       "permanent": false
