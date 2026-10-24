@@ -1742,41 +1742,6 @@ document.querySelectorAll('.faq-item').forEach(item => {
   item.addEventListener('click', () => item.classList.toggle('open'));
 });
 
-// Subscribe form handler
-function subscribe(e, source) {
-  e.preventDefault();
-  const input = document.getElementById(source + '-email');
-  const email = input.value;
-  const form = document.getElementById(source + '-form');
-  const success = document.getElementById(source + '-success');
-  
-  if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-    alert('Por favor introduce un email válido.');
-    return;
-  }
-
-  const button = form.querySelector('button');
-  button.disabled = true;
-  button.textContent = 'Procesando...';
-
-  fetch('/api/subscribe', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: email })
-  })
-    .then(response => response.json())
-    .then(data => {
-      form.style.display = 'none';
-      success.style.display = 'block';
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Error al procesar la suscripción. Intenta más tarde.');
-      button.disabled = false;
-      button.textContent = 'Quiero acceso anticipado';
-    });
-}
-
 // Staggered animations for first section
 window.addEventListener('load', () => {
   document.querySelectorAll('.hero .fade-up').forEach((el, i) => {
