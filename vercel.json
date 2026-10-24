@@ -11,6 +11,22 @@
     {
       "source": "/tudineroatufavor",
       "destination": "/tudineroatufavor.html"
+    },
+    {
+      "source": "/curso-7-dias",
+      "destination": "/curso-7-dias.html"
+    },
+    {
+      "source": "/curso-confirmacion",
+      "destination": "/curso-confirmacion.html"
+    },
+    {
+      "source": "/curso-pendiente",
+      "destination": "/curso-pendiente.html"
+    },
+    {
+      "source": "/sobre",
+      "destination": "/sobre.html"
     }
   ],
   "redirects": [
