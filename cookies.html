@@ -127,7 +127,7 @@ footer {
   <h2>4. Actualizaciones</h2>
   <p>Esta política puede actualizarse en función de cambios en el servicio o en la legislación aplicable. Recomendamos revisarla periódicamente.</p>
 
-  <p>Para cualquier consulta sobre el uso de cookies: <a href="mailto:hola@miradorfinanciero.com">hola@miradorfinanciero.com</a></p>
+  <p>Para cualquier consulta sobre el uso de cookies: <a href="#" class="js-mail" data-u="hola" data-d="miradorfinanciero.com" data-show="1">hola [arroba] miradorfinanciero.com</a></p>
 </main>
 <footer>
   <div class="footer-legal">
@@ -135,9 +135,10 @@ footer {
     <a href="/privacidad.html">Política de privacidad</a>
     <a href="/aviso-legal.html">Aviso legal</a>
     <a href="/cookies.html">Cookies</a>
-    <a href="mailto:hola@miradorfinanciero.com">Contacto</a>
+    <a href="#" class="js-mail" data-u="hola" data-d="miradorfinanciero.com">Contacto</a>
   </div>
   <div class="footer-copy">© 2026 Amautta Soluciones, S.L. · CIF B88435326 · Mirador Financiero</div>
 </footer>
+<script>document.querySelectorAll("a.js-mail").forEach(function(a){var m=a.dataset.u+"@"+a.dataset.d;a.href="mailto:"+m;if(a.dataset.show)a.textContent=m;});</script>
 </body>
 </html>

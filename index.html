@@ -1644,7 +1644,7 @@ footer {
           <div class="faq-q-text">¿Cuándo llega el módulo de inversión?</div>
           <div class="faq-q-icon">+</div>
         </div>
-        <div class="faq-a">Ya está disponible. Puedes registrar y hacer seguimiento de tus posiciones de inversión directamente en la app. Si tienes alguna duda sobre cómo usarlo, escríbenos a hola@miradorfinanciero.com.</div>
+        <div class="faq-a">Ya está disponible. Puedes registrar y hacer seguimiento de tus posiciones de inversión directamente en la app. Si tienes alguna duda sobre cómo usarlo, escríbenos a <a href="#" class="js-mail" data-u="hola" data-d="miradorfinanciero.com" data-show="1">hola [arroba] miradorfinanciero.com</a>.</div>
       </div>
       <div class="faq-item fade-up">
         <div class="faq-q">
@@ -1720,7 +1720,7 @@ footer {
       <a href="/privacidad.html">Política de privacidad</a>
       <a href="/aviso-legal.html">Aviso legal</a>
       <a href="/cookies.html">Cookies</a>
-      <a href="mailto:hola@miradorfinanciero.com">Contacto</a>
+      <a href="#" class="js-mail" data-u="hola" data-d="miradorfinanciero.com">Contacto</a>
     </div>
   </div>
 </footer>
@@ -1824,5 +1824,6 @@ function cookieDecision(choice) {
   </div>
 </div>
 
+<script>document.querySelectorAll("a.js-mail").forEach(function(a){var m=a.dataset.u+"@"+a.dataset.d;a.href="mailto:"+m;if(a.dataset.show)a.textContent=m;});</script>
 </body>
 </html>

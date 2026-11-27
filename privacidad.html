@@ -103,7 +103,7 @@ footer {
     <li><strong>CIF:</strong> B88435326</li>
     <li><strong>Domicilio:</strong> Avenida de la Dehesa 2, 28702 San Sebastián de los Reyes (Madrid)</li>
     <li><strong>Inscripción:</strong> Registro Mercantil de Madrid, Tomo 39379, Folio 56, Hoja M-699208</li>
-    <li><strong>Contacto:</strong> <a href="mailto:hola@miradorfinanciero.com">hola@miradorfinanciero.com</a></li>
+    <li><strong>Contacto:</strong> <a href="#" class="js-mail" data-u="hola" data-d="miradorfinanciero.com" data-show="1">hola [arroba] miradorfinanciero.com</a></li>
   </ul>
 
   <h2>2. Datos que recogemos y finalidades</h2>
@@ -148,7 +148,7 @@ footer {
   </div>
 
   <h2>7. Derechos de los interesados</h2>
-  <p>Puede ejercer en cualquier momento los siguientes derechos escribiendo a <a href="mailto:hola@miradorfinanciero.com">hola@miradorfinanciero.com</a> con el asunto <em>"Ejercicio de derechos RGPD"</em>:</p>
+  <p>Puede ejercer en cualquier momento los siguientes derechos escribiendo a <a href="#" class="js-mail" data-u="hola" data-d="miradorfinanciero.com" data-show="1">hola [arroba] miradorfinanciero.com</a> con el asunto <em>"Ejercicio de derechos RGPD"</em>:</p>
   <ul>
     <li><strong>Acceso:</strong> conocer qué datos tratamos.</li>
     <li><strong>Rectificación:</strong> corregir datos inexactos.</li>
@@ -168,9 +168,10 @@ footer {
     <a href="/privacidad.html">Política de privacidad</a>
     <a href="/aviso-legal.html">Aviso legal</a>
     <a href="/cookies.html">Cookies</a>
-    <a href="mailto:hola@miradorfinanciero.com">Contacto</a>
+    <a href="#" class="js-mail" data-u="hola" data-d="miradorfinanciero.com">Contacto</a>
   </div>
   <div class="footer-copy">© 2026 Amautta Soluciones, S.L. · CIF B88435326 · Mirador Financiero</div>
 </footer>
+<script>document.querySelectorAll("a.js-mail").forEach(function(a){var m=a.dataset.u+"@"+a.dataset.d;a.href="mailto:"+m;if(a.dataset.show)a.textContent=m;});</script>
 </body>
 </html>
