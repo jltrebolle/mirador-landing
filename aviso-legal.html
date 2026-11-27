@@ -102,7 +102,7 @@ footer {
     <li><strong>CIF:</strong> B88435326</li>
     <li><strong>Domicilio social:</strong> Avenida de la Dehesa 2, 28702 San Sebastián de los Reyes (Madrid), España</li>
     <li><strong>Inscripción:</strong> Registro Mercantil de Madrid, Tomo 39379, Folio 56, Hoja M-699208, Inscripción 1ª. Constituida el 5 de julio de 2019 ante la notaria D.ª Ana López-Monis Gallego, protocolo 2019/2642.</li>
-    <li><strong>Email:</strong> <a href="mailto:hola@miradorfinanciero.com">hola@miradorfinanciero.com</a></li>
+    <li><strong>Email:</strong> <a href="#" class="js-mail" data-u="hola" data-d="miradorfinanciero.com" data-show="1">hola [arroba] miradorfinanciero.com</a></li>
     <li><strong>Web:</strong> miradorfinanciero.com</li>
   </ul>
 
@@ -129,9 +129,10 @@ footer {
     <a href="/privacidad.html">Política de privacidad</a>
     <a href="/aviso-legal.html">Aviso legal</a>
     <a href="/cookies.html">Cookies</a>
-    <a href="mailto:hola@miradorfinanciero.com">Contacto</a>
+    <a href="#" class="js-mail" data-u="hola" data-d="miradorfinanciero.com">Contacto</a>
   </div>
   <div class="footer-copy">© 2026 Amautta Soluciones, S.L. · CIF B88435326 · Mirador Financiero</div>
 </footer>
+<script>document.querySelectorAll("a.js-mail").forEach(function(a){var m=a.dataset.u+"@"+a.dataset.d;a.href="mailto:"+m;if(a.dataset.show)a.textContent=m;});</script>
 </body>
 </html>

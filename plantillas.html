@@ -191,9 +191,10 @@ footer a:hover{color:var(--fondo)}
     <a href="/privacidad.html">Privacidad</a>
     <a href="/aviso-legal.html">Aviso legal</a>
     <a href="/cookies.html">Cookies</a>
-    <a href="mailto:hola@miradorfinanciero.com">Contacto</a>
+    <a href="#" class="js-mail" data-u="hola" data-d="miradorfinanciero.com">Contacto</a>
   </div>
 </footer>
 
+<script>document.querySelectorAll("a.js-mail").forEach(function(a){var m=a.dataset.u+"@"+a.dataset.d;a.href="mailto:"+m;if(a.dataset.show)a.textContent=m;});</script>
 </body>
 </html>

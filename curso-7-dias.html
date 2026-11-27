@@ -626,7 +626,7 @@ footer {
     <a href="/privacidad.html">Política de privacidad</a>
     <a href="/aviso-legal.html">Aviso legal</a>
     <a href="/cookies.html">Cookies</a>
-    <a href="mailto:hola@miradorfinanciero.com">Contacto</a>
+    <a href="#" class="js-mail" data-u="hola" data-d="miradorfinanciero.com">Contacto</a>
   </div>
   <div class="footer-copy">© 2026 Amautta Soluciones, S.L. · CIF B88435326 · Mirador Financiero</div>
 </footer>
@@ -692,5 +692,6 @@ function cookieDecision(choice) {
 </script>
 <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
 
+<script>document.querySelectorAll("a.js-mail").forEach(function(a){var m=a.dataset.u+"@"+a.dataset.d;a.href="mailto:"+m;if(a.dataset.show)a.textContent=m;});</script>
 </body>
 </html>

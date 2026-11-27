@@ -156,9 +156,10 @@
 </main>
 
 <footer>
-  <strong>Mirador Financiero</strong> · <a href="https://miradorfinanciero.com">miradorfinanciero.com</a> · <a href="mailto:hola@miradorfinanciero.com">hola@miradorfinanciero.com</a><br>
+  <strong>Mirador Financiero</strong> · <a href="https://miradorfinanciero.com">miradorfinanciero.com</a> · <a href="#" class="js-mail" data-u="hola" data-d="miradorfinanciero.com" data-show="1">hola [arroba] miradorfinanciero.com</a><br>
   «Mirador Financiero» es marca de Amautta Soluciones, S.L.
 </footer>
 
+<script>document.querySelectorAll("a.js-mail").forEach(function(a){var m=a.dataset.u+"@"+a.dataset.d;a.href="mailto:"+m;if(a.dataset.show)a.textContent=m;});</script>
 </body>
 </html>

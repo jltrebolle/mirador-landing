@@ -330,6 +330,11 @@ nav {
             <input type="email" id="inputEmail" placeholder="tu@email.com" autocomplete="email">
             <div class="field-error" id="errorEmail">Introduce un email válido.</div>
           </div>
+          <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+            <label for="inputWebsite">No rellenar</label>
+            <input type="text" id="inputWebsite" name="website" tabindex="-1" autocomplete="off">
+          </div>
+          <div id="turnstileBox" style="margin:12px 0;"></div>
           <button class="btn-primary" onclick="startQuiz()">
             Continuar
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -386,7 +391,7 @@ nav {
             <svg viewBox="0 0 24 24" fill="none" stroke="#E05252" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
           </div>
           <h2 style="color:var(--noche)">Algo ha fallado</h2>
-          <p>No hemos podido procesar tu diagnóstico. Vuelve a intentarlo o escríbenos a <a href="mailto:hola@miradorfinanciero.com" style="color:var(--mirador)">hola@miradorfinanciero.com</a>.</p>
+          <p>No hemos podido procesar tu diagnóstico. Vuelve a intentarlo o escríbenos a <a href="#" class="js-mail" data-u="hola" data-d="miradorfinanciero.com" data-show="1" style="color:var(--mirador)">hola [arroba] miradorfinanciero.com</a>.</p>
           <button class="btn-next" onclick="resetToCapture()" style="margin: 1.5rem auto 0; width:auto; padding: 12px 28px;">
             Reintentar
           </button>
@@ -407,23 +412,26 @@ nav {
 /* ================================================================
    CONFIGURACIÓN — RELLENAR ANTES DE DESPLEGAR
    ================================================================ */
-// IDs de listas en Brevo (Settings → Contacts → Lists → ID numérico)
-const BREVO_LISTS = {
-  perfil1: 12,  // Diagnostico-Cero
-  perfil2: 13,  // Diagnostico-SinMetodo
-  perfil3: 14,  // Diagnostico-Optimizar
-  perfil4: 15,  // Diagnostico-Solido
-  perfil5: 16,  // Diagnostico-Autonomo
-};
+// Listas y plantillas de Brevo: se resuelven en /api/diagnostico a partir del perfil.
 
-// IDs de plantillas transaccionales en Brevo (Email → Templates → ID)
-const BREVO_TEMPLATES = {
-  perfil1: 41,  // Diagnostico-Cero
-  perfil2: 42,  // Diagnostico-SinMetodo
-  perfil3: 43,  // Diagnostico-Optimizar
-  perfil4: 44,  // Diagnostico-Solido
-  perfil5: 45,  // Diagnostico-Autonomo
-};
+// Cloudflare Turnstile: pega aquí la site key para activarlo (y TURNSTILE_SECRET_KEY en Vercel).
+const TURNSTILE_SITE_KEY = '';
+const PAGE_LOADED_AT = Date.now();
+let turnstileToken = '';
+if (TURNSTILE_SITE_KEY) {
+  window.onTurnstileLoad = function () {
+    turnstile.render('#turnstileBox', {
+      sitekey: TURNSTILE_SITE_KEY,
+      language: 'es',
+      callback: function (tok) { turnstileToken = tok; }
+    });
+  };
+  const ts = document.createElement('script');
+  ts.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad';
+  ts.async = true; ts.defer = true;
+  document.head.appendChild(ts);
+}
+
 /* ================================================================ */
 
 const PREGUNTAS = [
@@ -700,8 +708,8 @@ function resetToCapture() {
 // Envío a función serverless Vercel
 async function submitDiagnostico() {
   const perfil     = clasificarPerfil(respuestas);
-  const listId     = BREVO_LISTS[perfil];
-  const templateId = BREVO_TEMPLATES[perfil];
+  const website    = document.getElementById('inputWebsite').value;
+  const t          = Date.now() - PAGE_LOADED_AT;
 
   showScreen('sending');
   document.getElementById('progressHeader').style.display = 'none';
@@ -711,7 +719,7 @@ async function submitDiagnostico() {
     const res = await fetch('/api/diagnostico', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, nombre, listId, templateId })
+      body: JSON.stringify({ email, nombre, perfil, website, t, turnstileToken })
     });
 
     if (!res.ok) throw new Error('Error servidor: ' + res.status);
@@ -725,5 +733,6 @@ async function submitDiagnostico() {
 }
 </script>
 
+<script>document.querySelectorAll("a.js-mail").forEach(function(a){var m=a.dataset.u+"@"+a.dataset.d;a.href="mailto:"+m;if(a.dataset.show)a.textContent=m;});</script>
 </body>
 </html>
